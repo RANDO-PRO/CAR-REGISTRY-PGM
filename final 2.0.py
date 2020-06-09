@@ -175,7 +175,7 @@ def slot():
         while(length!=3):
             length=len(slot)
             slot="0"+slot
-        if(int(slot)>999):
+        if(int(slot>999):
             print("slot no. cannot be more than 999!!! ENTER AGAIN!!!!")
             raise AssertionError
     return slot
