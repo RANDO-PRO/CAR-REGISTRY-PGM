@@ -55,7 +55,7 @@ baitB="back"
 baitA="again"
 import mysql.connector
 m=mysql.connector.connect(user='root', password='tiger', auth_plugin='mysql_native_password')
-c=m1.cursor()
+c=m.cursor()
 try:
     c.execute("create database vdata")
 except mysql.connector.errors.DatabaseError:
