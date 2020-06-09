@@ -167,17 +167,20 @@ def slot():
     elif(slot=="again"):
         return baitA
     elif(slot.isnumeric()==False):
-        print("value should be numeric")
+            print("value should be numeric")
+            raise AssertionError
     elif(int(slot)<1):
-        print("value cant be 0.ENTER AGAIN!!")
+            print("value cant be 0.ENTER AGAIN!!")
+            raise AssertionError
+    elif(int(slot>999):
+            print("slot no. cannot be more than 999!!! ENTER AGAIN!!!!")
+            raise AssertionError
     else:
         length=len(slot)
         while(length!=3):
             length=len(slot)
             slot="0"+slot
-        if(int(slot>999):
-            print("slot no. cannot be more than 999!!! ENTER AGAIN!!!!")
-            raise AssertionError
+        
     return slot
 def serial():
     serial=input("enter slot number")
@@ -556,15 +559,23 @@ while(x!="bye"):
             
             c.execute("select * from registry where R_CODE=search")
             record=c.fetchall()    
-                if(record==none):
-                    print("registration no. not found!! try again!!")
-                    continue
+            if(record==none):
+                print("registration no. not found!! try again!!")
+                
+                continue
+                
                 name=record[2]
+                
                 slot=record[6]
+                
                 serial=ecord[7]
+                
                 state=record[3]
+                 
                 ID=record[5]
+                
                 date=record[4]
+                
                 print("="*95)
                     
                 print("NAME:",name,"\nSLOT:",slot,"\nSERIAL:",serial,"\nSTATE:",state,"\nID NUMBER:",ID,"\nDATE OF REGISTRATION:",date)
