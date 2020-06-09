@@ -89,7 +89,7 @@ def sname():
     else:
         return sname
 def state():
-    state=input("enter your first name")
+    state=input("enter your state")
     if(state=="back"):
         return baitB
     elif(fname=="again"):
