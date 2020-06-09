@@ -442,7 +442,7 @@ while(x!="bye"):
                 
                 break
             
-            date=year+"-"+month+"-"+date
+            date=year+"-"+month+"-"+day
             
             
             #id
