@@ -133,7 +133,7 @@ def day():
         print("day doesn't exist! ENTER AGAIN!!")
         raise AssertionError
     elif(int(year)%4==0 and month=="2" and int(day)>29):
-        print("day doesn't exist! ENTER AGAIN!!")
+        print("day doesni't exst! ENTER AGAIN!!")
         raise AssertionError
     elif(int(month)==8 and day2>31):
         print("day doesn't exist! ENTER AGAIN!!")
@@ -206,7 +206,7 @@ while(x!="bye"):
     
     car=0
     
-    print("1. REGISTER VEHICLE \n2. GET CUSTOMER DETAILS(REGISTRATION NO. REQUIRED) \n3. CHECK REGISTRATION NO.(CUSTOMER DETAILS REQUIRED) \n4. HELP \n5. SALE OF CARS")
+    print("1. REGISTER VEHICLE \n2. GET CUSTOMER DETAILS(REGISTRATION NO. REQUIRED) \n3. CHECK REGISTRATION NO.(CUSTOMER DETAILS REQUIRED) \n4. MODIFY DATA \n5. SALE OF CARS \n6. HELP")
     
     x=input("choose from option enter 'bye' to exit")
     
@@ -547,8 +547,8 @@ while(x!="bye"):
             
             elif(search=="back"):
                 break
-            
-            print("REGISTRATION CODE:",search)
+            else:
+                print("REGISTRATION CODE:",search)
             
             check=input("check registration code and press any key to continue or enter 'again' to enter again ")
             
@@ -560,7 +560,7 @@ while(x!="bye"):
             
             c.execute("select * from registry where R_CODE=%s;",(search,))
             record=c.fetchall()    
-            if(record==None):
+            if(record==[]):
                 
                 print("registration no. not found!! try again!!")
                 
@@ -639,11 +639,30 @@ while(x!="bye"):
                     continue
             
     elif(x=="4"):
-        print("="*95)
-        
-        print("FOR HELP CONTACT US ON \nEMAIL: anything@example.com \nCUSTOMER CARE: 110-XX-XX-XXX")
-        
-        print("="*95)
+        ok=""
+        while(ok!=n):
+            rcode=input("enter registrtaion code")
+            c.exexute("select * from registry where R_CODE=%s",(rcode,) )
+            checkdata=c.featchall()
+            if(checkdata=[]):
+                print("code doesn't exist")
+                continue
+            else:
+                print("="*95
+                print("1.NAME \n2.STATE \n what you want to update")
+                print("="*95) 
+                update=input("choose a option no.")
+                if(update="1"):
+                      while(check=="again")
+                      new_name=input("enter new name")
+                      check=input("press any key to continue")
+                      c.execute("update registry set name=%s where R_CODE=%s;",(new_name,rcode))
+                elif(update="2"):
+                      pass
+                      while(check=="again")
+                      new_name=input("enter new name")
+                      check=input("press any key to continue")
+                      c.execute("update registry set name=%s where R_CODE=%s;",(new_name,rcode))
     
     elif(x=="5"):
         
@@ -796,7 +815,12 @@ while(x!="bye"):
                     
                     
                             
-                    
+    elif(x=="6"):
+        print("="*95)
+        
+        print("FOR HELP CONTACT US ON \nEMAIL: anything@example.com \nCUSTOMER CARE: 110-XX-XX-XXX")
+        
+        print("="*95)                
     else:
         
         continue
