@@ -61,7 +61,10 @@ try:
 except mysql.connector.errors.DatabaseError:
     pass
 c1.execute("use vdata")
-c1.execute("create table regitry(rcode int primary key,name char(50) not null,state char(50) not null,DOR date not null,id char(50) not null,serial int not null,slot int not null)")
+try:
+    c1.execute("create table regitry(rcode int primary key,name char(50) not null,state char(50) not null,DOR date not null,id char(50) not null,serial int not null,slot int not null)")
+except:
+    pass
 #rcode-name-state-dor-id-slot-serial
 def fname():
     fname=input("enter your first name")
