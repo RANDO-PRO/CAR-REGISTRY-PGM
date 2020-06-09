@@ -554,7 +554,7 @@ while(x!="bye"):
                 
                 continue
             
-            c.execute("select * where rcode=search")
+            c.execute("select * from registry where R_CODE=search")
             record=c.fetchall()    
                 if(record==none):
                     print("registration no. not found!! try again!!")
