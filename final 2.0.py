@@ -54,15 +54,15 @@ RCODE=[]
 baitB="back"
 baitA="again"
 import mysql.connector
-m1=mysql.connector.connect(user='root', password='tiger', auth_plugin='mysql_native_password')
-c1=m1.cursor()
+m=mysql.connector.connect(user='root', password='tiger', auth_plugin='mysql_native_password')
+c=m1.cursor()
 try:
-    c1.execute("create database vdata")
+    c.execute("create database vdata")
 except mysql.connector.errors.DatabaseError:
     pass
-c1.execute("use vdata")
+c.execute("use vdata")
 try:
-    c1.execute("create table regitry(rcode int primary key,name char(50) not null,state char(50) not null,DOR date not null,id char(50) not null,serial int not null,slot int not null)")
+    c.execute("create table regitry(rcode int primary key,name char(50) not null,state char(50) not null,DOR date not null,id char(50) not null,serial int not null,slot int not null)")
 except:
     pass
 #rcode-name-state-dor-id-slot-serial
