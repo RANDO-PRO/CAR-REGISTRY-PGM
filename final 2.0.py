@@ -558,24 +558,25 @@ while(x!="bye"):
                 
                 continue
             
-            c.execute("select * from registry where R_CODE=search")
+            c.execute("select * from registry where R_CODE=%s;",(search,))
             record=c.fetchall()    
-            if(record==none):
+            if(record==None):
+                
                 print("registration no. not found!! try again!!")
                 
-                continue
                 
-                name=record[2]
+            else:    
+                name=record[0][1]
                 
-                slot=record[6]
+                slot=record[0][5]
                 
-                serial=ecord[7]
+                serial=record[0][6]
                 
-                state=record[3]
+                state=record[0][2]
                  
-                ID=record[5]
+                ID=record[0][4]
                 
-                date=record[4]
+                date=record[0][3]
                 
                 print("="*95)
                     
