@@ -172,7 +172,7 @@ def slot():
     elif(int(slot)<1):
             print("value cant be 0.ENTER AGAIN!!")
             raise AssertionError
-    elif(int(slot>999):
+    elif(int(slot)>999):
             print("slot no. cannot be more than 999!!! ENTER AGAIN!!!!")
             raise AssertionError
     else:
