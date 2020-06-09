@@ -181,7 +181,7 @@ def slot():
             length=len(slot)
             slot="0"+slot
         
-    return slot
+        return slot
 def serial():
     serial=input("enter slot number")
     if(serial=="back"):
@@ -190,9 +190,10 @@ def serial():
         return baitA
     elif(serial.isnumeric()==False):
         print("value should be numeric")
+        raise AssertionError
     elif(int(serial)<10000):
         print("oops!! serial no. cannot be more than 9999! ENTER AGAIN!! ")
-        AssertionError
+        raise AssertionError
     else:
         size=len(serial)
         if(size!=4):
