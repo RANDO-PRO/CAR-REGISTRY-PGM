@@ -351,7 +351,7 @@ while(x!="bye"):
                 #rcode-name-state-dor-id-slot-serial
                 code=(state[0]+state[2]+slot+chr(64+int(month))+serial+year)
                 c1.execute("insert into regitry values(code,name,state,date,ID,slot,serial)")
-                c1.execute
+                c1.execute("select *")
                 SLOT.append(slot)
                 NAME.append(name)
                 ID_NO.append(ID)
