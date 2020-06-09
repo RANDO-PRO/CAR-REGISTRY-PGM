@@ -640,30 +640,33 @@ while(x!="bye"):
             
     elif(x=="4"):
         ok=""
-        while(ok!=n):
+        while(ok!='n'):
             rcode=input("enter registrtaion code")
-            c.exexute("select * from registry where R_CODE=%s",(rcode,) )
-            checkdata=c.featchall()
-            if(checkdata=[]):
+            c.execute("select * from registry where R_CODE=%s",(rcode,) )
+            checkdata=c.fetchall()
+            if(checkdata==[]):
                 print("code doesn't exist")
                 continue
             else:
-                print("="*95
+                print("="*95)
                 print("1.NAME \n2.STATE \n what you want to update")
                 print("="*95) 
                 update=input("choose a option no.")
-                if(update="1"):
-                      while(check=="again")
+                if(update=="1"):
+                    check="again"
+                    while(check=="again"):
                       new_name=input("enter new name")
                       check=input("press any key to continue")
                       c.execute("update registry set name=%s where R_CODE=%s;",(new_name,rcode))
-                elif(update="2"):
+                elif(update=="2"):
                       pass
-                      while(check=="again")
-                      new_name=input("enter new name")
-                      check=input("press any key to continue")
-                      c.execute("update registry set name=%s where R_CODE=%s;",(new_name,rcode))
+                      while(check=="again"):
+                        new_name=input("enter new name")
+                        check=input("press any key to continue")
+                        c.execute("update registry set name=%s where R_CODE=%s;",(new_name,rcode))
     
+
+                ok='n'
     elif(x=="5"):
         
         while(sale!="back"):
