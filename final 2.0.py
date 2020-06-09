@@ -62,7 +62,7 @@ except mysql.connector.errors.DatabaseError:
     pass
 c.execute("use vdata")
 try:
-    c.execute("create table regitry(rcode int primary key,name char(50) not null,state char(50) not null,DOR date not null,id char(50) not null,serial int not null,slot int not null)")
+    c.execute("create table registry(R_CODE int primary key,NAME char(50) not null,STATE char(50) not null,D_O_R date not null,I_D char(50) not null,SERIAL_N_O int not null,SLOT int not null);")
 except:
     pass
 #rcode-name-state-dor-id-slot-serial
@@ -196,236 +196,430 @@ def serial():
                 serial="0"+serial
                 size=len(serial)
         return serial
-    
+   
 while(x!="bye"):
+    
     car=0
+    
     print("1. REGISTER VEHICLE \n2. GET CUSTOMER DETAILS(REGISTRATION NO. REQUIRED) \n3. CHECK REGISTRATION NO.(CUSTOMER DETAILS REQUIRED) \n4. HELP \n5. SALE OF CARS")
+    
     x=input("choose from option enter 'bye' to exit")
+    
     if(x=="1"):
+        
         while(save!="back"):
+            
             print("IMPORTANT COMMANDS")
-            print("******************************************************************************************")
+            
+            print("*"*95)
+            
             print("1. ENTER 'back' AT ANY POINT TO QUIT TO MAIN MENU")
+            
             print("2. ENTER 'again' AT ANY POINT TO ENTER AGaIN")
-            print("******************************************************************************************")
+            
+            print("*"*95)
+            
+            
             #fname
+            
             while(ok=="again"):
+                
                 try:
                     fname=fname()
+                    
                     ok=input("press any key ")
+                    
                     if(fname=="back"):
                         break
+                
                 except AssertionError:
                     continue
+                
                 except ValueError:
                     continue
+            
             if(fname=="back"):
                         break
+            
+            
             #sname
+            
             ok="again"
+            
             while(ok=="again"):
+                
                 sname=sname()
+                
                 ok=input("press any key ")
+            
             if(sname=="back"):
                 break
+            
             name=fname+" "+sname
+            
+            
             #state
+            
             ok="again"
+            
             while(ok=="again"):
+                
                 state=state()
+                
                 if(state=="back"):
                     break
+                
                 ok=input("press any key to continue ")
+            
             if(state=="back"): 
+                
                 break
+            
             state=state.upper()
+            
+            
             #slot
+            
             ok="again"
+            
             while(ok=="again"):
+                
                 try:
+                    
                     slot=slot()
+                    
                     slot2=int(slot)
+                    
                     if(slot=="back"):
+                        
                         break
+                
                 except ValueError:
+                    
                     print("OOPS! ERROR!,TRY AGAIN! AVOID USE OF SPECIAL CHARACTER ")
+                    
                     continue
+                
                 except AssertionError:
+                    
                     continue
+                
                 ok=input("press any key to continue")
+            
             if(slot=="back"):
+                
                 break
+            
+            
             #serial
+            
             ok="again"
+            
             while(ok=="again"):
+                
                 try:
+                    
                     serial=input("ENTER SERIAL NO. (not more than 4): ")
+                    
                     serial2=int(serial)
+                    
                     if(serial=="back"):
+                        
                         break
+                    
                     ok=input("press any key to continue ")
+                
                 except ValueError:
+                    
                     print("OOPS! ERROR!,TRY AGAIN! AVOID USE OF SPECIAL CHARACTER ")
+                    
                     continue
+                
                 except AssertionError:
+                    
                     continue
+            
             if(serial=="back"):
+                
                 break
+            
+            
             #year
+            
             ok="again"
+            
             while(ok=="again"):
+                
                 try:
+                    
                     year=input("ENTER YEAR: ")
+                    
                     if(year=="back"):
+                        
                         break
+                
                 except ValueError:
+                    
                     print("OOPS! ERROR!,TRY AGAIN! AVOID USE OF SPECIAL CHARACTER ")
+                    
                     continue
+                
                 except AssertionError:
+                    
                     continue
+                
                 ok=input("press any key to continue ")
+            
             if(year=="back"):
+                
                 break
+            
+            
             #month
+            
             ok="again"
+            
             while(ok=="again"):
+                
                 try:
+                    
                     month=input("ENTER MONTH NO.: ")
+                    
                     if(month=="back"):
+                        
                         break
+                
                 except ValueError:
+                    
                     print("OOPS! ERROR!,TRY AGAIN! AVOID USE OF SPECIAL CHARACTER ")
+                    
                     continue
+                
                 except AssertionError:
+                    
                     continue
+                
                 ok=input("press any key to continue ")
+            
             if(month=="back"):
+                
                 break
+            
+            
             #day
+            
             ok="again"
+            
             while(ok=="again"):
+                
                 day=input("ENTER DAY OF THE MONTH: ")
+                
                 day2=int(day)
+                
                 try:
                     if(day=="back"):
+                        
                         break
                     else:
+                        
                         ok=input("press any key to continue ")
+                
                 except ValueError:
+                    
                     print("OOPS! ERROR!,TRY AGAIN! AVOID USE OF SPECIAL CHARACTER ")
+                    
                     continue
+                
                 except AssertionError:
+                    
                     continue
+                    
                     print("OOPS! ERROR!,TRY AGAIN! AVOID USE OF SPECIAL CHARACTER ")
+                    
                     continue
             if(day=="back"):
+                
                 break
+            
             date=day+"-"+month+"-"+year
+            
+            
             #id
+            
             ok="again"
+            
             while(ok=="again"):
+                
                 try:
+                    
                     ID=input("ENTER ID NO.(adhaar card or voter id card no.): ")
+                    
                     if(ID=="back"):
                         break
+                
                 except ValueError:
                     print("OOPS! ERROR!,TRY AGAIN! AVOID USE OF SPECIAL CHARACTER ")
+                    
                     continue
+                
                 except AssertionError:
+                    
                     continue
+                
                 ok=input("press any key to continue ")
+            
             if(ID=="back"):
+                
                 break
-            print("==============================================================================================")
+            
+            print("="*95)
+            
             print("STATE:",state,"\nNAME:",name,"\nSLOT NO.:",slot,"\nSERIAL NO.:",serial,"\nDATE:",date,"\nID NO.:",ID,"\nCHECK ALL THE INFORMATION!!!!!!!")
+            
             print("1.ENTER 'reenter' TO ENTER AGIN \n2. ENTER 'back' TO QUIT TO MAIN MENU")
-            print("==============================================================================================")
-            while(goku>0):
+            
+            print("="*95)
+            
+            while(True):
+                
                 save=input("do you want to save data?? yes/no: ")
+                
                 save=save.lower()
+                
                 if(save=="yes" or save=="no" or save=="back" or save=="reenter"):
+                    
                     break
+                
                 else:
+                    
                     print("enter from the available option only!!")
                     
             save=save.lower()
+            
             if(save=="yes"):
+                
                 print("data registered!!!")
+                
+                
                 #rcode-name-state-dor-id-slot-serial
+                
                 code=(state[0]+state[2]+slot+chr(64+int(month))+serial+year)
-                c1.execute("insert into regitry values(code,name,state,date,ID,slot,serial)")
-                c1.execute("select *")
-                SLOT.append(slot)
-                NAME.append(name)
-                ID_NO.append(ID)
-                RCODE.append(code)
-                DAY.append(day)
-                MONTH.append(month)
-                YEAR.append(year)
-                SERIAL.append(serial)
-                STATE.append(state)
+                
+                c.execute("INSERT INTO registry VALUES(%s,%s,%s,%s,%s,%s,%s);",(code,name,state,date,ID,slot,serial))
+                
+                m.commit()
+                
                 print("your registration code is ",code)
+                
                 press=input("press any key to continue")
-                break                                       
+                
+                break
+                
+            
             elif(save=="back"):
                 break
+            
             elif(save=="reenter"):
                 continue
+            
             elif(save=="no"):
                 print("not saved")
                 continue
+        
         print("quiting to main menu!!!")
+    
     elif(x=="2"):
+        
         while(done!="no"):
+            
             search=input("ENTER REGISTRATION CODE TO GET INFO or enter 'back' to go back to main menu: ")
+            
             if(search==""):
+                
                 print("empty feild!!enter again!!")
+                
                 continue
+            
             elif(search=="back"):
                 break
+            
             print("REGISTRATION CODE:",search)
+            
             check=input("check registration code and press any key to continue or enter 'again' to enter again ")
+            
             check=check.lower()
+            
             if(check=="again"):
+                
                 continue
+            
             for gap in RCODE:
+                
                 if(gap==search):
+                    
+                    
                     index=RCODE.index(gap)
-                    print("================================================================================================================================")
+                    
+                    print("="*95)
+                    
                     print("NAME:",NAME[index],"\nSLOT:",SLOT[index],"\nSERIAL:",SERIAL[index],"\nSTATE:",STATE[index],"\nID NUMBER:",ID_NO[index],"\nDATE OF REGISTRATION:",DAY[index],"-",MONTH[index],"-",YEAR[index])
-                    print("=================================================================================================================================")
+                    
+                    print("="*95)
+                    
                     break
+            
             if(gap!=search):
+                
                 print("registration no. not found!! try again!!")
+            
             while(soup>0):
+                
                 done=input("do you want to continue? yes/no ")
+                
                 if(done=="yes" or done=="no"):
+                    
                     break
+                
                 else:
                      print("choose from the given option only")
-                     continue
-                    
-            
+                   
     elif(x=="3"):
+        
         while(final!="no"):
+            
             details=input("ENTER YOUR ID NO. TO CHECK REGISTRATION NO.")
+            
             if(details==""):
+                
                 print("empty feild!!enter again!!")
+            
             elif(details=="back"):
+                
                 break
             print("ID NUMBER:",details)
+            
             check=input("check ID NUMBER and press any key to continue or enter 'again' to enter again ")
+            
             check=check.lower()
+            
             if(check=="again"):
                 continue
+            
             for os in ID_NO:
+                
                 if(os==details):
+                    
                     index=ID_NO.index(os)
+                    
                     print("your registration code is:",RCODE[index])
+                    
                     break
+            
             if(os!=details):
+                
                 print("registration no. not found!! try again!!")
-            while(infinite>0):
+            
+            while(True):
                 final=input("do you want to continue? yes/no")
                 if(final=="yes" or final=="no"):
                     break
@@ -434,90 +628,158 @@ while(x!="bye"):
                     continue
             
     elif(x=="4"):
-        print("===============================================================================================================")
+        print("="*95)
+        
         print("FOR HELP CONTACT US ON \nEMAIL: anything@example.com \nCUSTOMER CARE: 110-XX-XX-XXX")
-        print("===============================================================================================================")
+        
+        print("="*95)
+    
     elif(x=="5"):
+        
         while(sale!="back"):
+            
             saleyear=""
+            
             salemonth=""
+            
             print("Filter by: \n1. MONTH  \n2. YEAR \n3. MONTH and YEAR \nENTER back to quit to main menue")
+            
             sale=input("choose from option")
+            
             try:
+                
                 if(sale=="1"):
+                    
                     while(bat!="no"):
+                        
                         car=0
+                        
                         salemonth=input("sale of which month(enter month no.)")
+                        
                         for per in MONTH:
+                            
                             if(per==salemonth):
+                                
                                 car=car+1
+                        
                         if(salemonth==""):
+                            
                             print("empty")
+                        
                         elif(per!=salemonth):
+                            
                             print("month doesnt exist")
+                        
                         print("your sale for this month is",car)
-                        while(gohan>0):
+                        
+                        while(1>0):
+                            
                             bat=input("do yo want to surf more in this filter yes/no")
+                            
                             if(bat=="yes" or bat=="no"):
                                 break
+                            
                             else:
                                 continue
+                        
                         if(bat=="yes"):
                             continue
+                        
                         else:
                             break
+                
                 elif(sale=="2"):
+                    
                     car=0
+                    
                     while(cat!="no"):
+                        
                         saleyear=input("sale of which year(enter year no.)")
+                        
                         for fer in YEAR:
+                            
                             if(fer==saleyear):
+                                
                                 car=car+1
+                        
                         if(sale==""):
+                            
                             print("empty")
+                        
                         elif(car==0):
                             print("sale for year doesnt exist")
+                        
                         print("your sale for this year is",car)
+                        
                         while(go>0):
+                            
                             cat=input("do yo want to surf more yes/no")
+                            
                             if(cat=="yes" or cat=="no"):
                                 break
+                            
                             else:
                                 continue
+                        
                         if(cat=="yes"):
                             continue
+                        
                         else:
                             break
+                
                 elif(sale=="3"):
+                    
                     car=0
+                    
                     chop=1
+                    
                     while(rat!="no"):
+                        
                         saleyear=input("year ")
+                        
                         salemonth=input("month")
+                        
                         for dash in YEAR:
+                            
                             if(dash==saleyear):
+                                
                                 van=YEAR.index(dash)
+                                
                                 MONTH[van]==salemonth
+                                
                                 car=car+1
+                        
                         if(car==0):
+                            
                             print("sale for this month and year doesn't exist")
+                        
                         print("sale for this month and year is",car)
+                        
                         while(chop>0):
+                            
                             rat=input("do yo want to surf more under this filter yes/no")
+                            
                             if(rat=="yes" or rat=="no"):
                                 break
+                            
                             else:
                                 continue
                         if(rat=="yes"):
                             continue
+                        
                         else:
                             break
+                
                 elif(sale=="back"):
+                    
                     break
+                
                 elif(sale=="again"):
                     continue
+                
                 else:
                     continue
+            
             except:
                 print("oops error occured")
                     
@@ -525,6 +787,8 @@ while(x!="bye"):
                             
                     
     else:
+        
         continue
+        
 print("BYE!!HAVE A NICE DAY :]")
     
