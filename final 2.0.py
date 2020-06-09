@@ -62,7 +62,7 @@ except mysql.connector.errors.DatabaseError:
     pass
 c.execute("use vdata")
 try:
-    c.execute("create table registry(R_CODE int primary key,NAME char(50) not null,STATE char(50) not null,D_O_R date not null,I_D char(50) not null,SERIAL_N_O int not null,SLOT int not null);")
+    c.execute("create table registry(R_CODE char(15) primary key,NAME char(50) not null,STATE char(50) not null,D_O_R date not null,I_D char(50) not null,SERIAL_N_O int not null,SLOT int not null);")
 except:
     pass
 #rcode-name-state-dor-id-slot-serial
@@ -178,6 +178,7 @@ def slot():
         if(int(slot)>999):
             print("slot no. cannot be more than 999!!! ENTER AGAIN!!!!")
             raise AssertionError
+    return slot
 def serial():
     serial=input("enter slot number")
     if(serial=="back"):
@@ -441,7 +442,7 @@ while(x!="bye"):
                 
                 break
             
-            date=day+"-"+month+"-"+year
+            date=year+"-"+month+"-"+date
             
             
             #id
@@ -553,25 +554,22 @@ while(x!="bye"):
                 
                 continue
             
-            for gap in RCODE:
-                
-                if(gap==search):
+            c.execute("select * where rcode=search")
+            record=c.fetchall()    
+                if(record==none):
+                    print("registration no. not found!! try again!!")
+                    continue
+                name=record[2]
+                slot=record[6]
+                serial=ecord[7]
+                state=record[3]
+                ID=record[5]
+                date=record[4]
+                print("="*95)
                     
+                print("NAME:",name,"\nSLOT:",slot,"\nSERIAL:",serial,"\nSTATE:",state,"\nID NUMBER:",ID,"\nDATE OF REGISTRATION:",date)
                     
-                    index=RCODE.index(gap)
-                    
-                    print("="*95)
-                    
-                    print("NAME:",NAME[index],"\nSLOT:",SLOT[index],"\nSERIAL:",SERIAL[index],"\nSTATE:",STATE[index],"\nID NUMBER:",ID_NO[index],"\nDATE OF REGISTRATION:",DAY[index],"-",MONTH[index],"-",YEAR[index])
-                    
-                    print("="*95)
-                    
-                    break
-            
-            if(gap!=search):
-                
-                print("registration no. not found!! try again!!")
-            
+                print("="*95)
             while(soup>0):
                 
                 done=input("do you want to continue? yes/no ")
