@@ -697,6 +697,11 @@ while(x!="bye"):
                         car=c.fetchall()
                         if(car[0][0]=0):
                             print("no sale in this month")
+                        c.execute(" select * from hello group by name having name like %%s%;",(saleyear,))
+                        dcar=c.fetchall()
+                        print("rcode | name |state |date of registration| id | slot| serial |")
+                        for alldata in dcar:
+                            print(alldata)
                         
                         print("your sale for this month is",car[0][0])
                         
@@ -724,9 +729,14 @@ while(x!="bye"):
                         
                         saleyear=input("sale of which year(enter year no.)")
                             print("empty")
-                         c.execute("select count(*) from hello where name like %%s%;",(saleyear))
+                        c.execute("select count(*) from hello where name like %%s%;",(saleyear,))
                         
                         car=c.fetchall()
+                        c.execute(" select * from hello group by name having name like %%s%;",(saleyear,))
+                        dcar=c.fetchall()
+                        print("rcode | name |state |date of registration| id | slot| serial |")
+                        for alldata in dcar:
+                            print(alldata)
                         if(car[0][0]=0):
                             print("no sale in this year
                         
