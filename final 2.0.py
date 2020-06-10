@@ -214,7 +214,7 @@ while(x!="bye"):
     
     car=0
     
-    print("1. REGISTER VEHICLE \n2. GET CUSTOMER DETAILS(REGISTRATION NO. REQUIRED) \n3. CHECK REGISTRATION NO.(CUSTOMER DETAILS REQUIRED) \n4. MODIFY DATA \n5. SALE OF CARS \n6. HELP")
+    print("1. REGISTER VEHICLE \n2. GET CUSTOMER DETAILS(REGISTRATION NO. REQUIRED) \n3. CHECK REGISTRATION NO.(ID DETAILS REQUIRED) \n4. MODIFY DATA \n5. SALE OF CARS \n6. HELP")
     
     x=input("choose from option enter 'bye' to exit")
     
@@ -624,17 +624,10 @@ while(x!="bye"):
             if(check=="again"):
                 continue
             
-            for os in ID_NO:
-                
-                if(os==details):
-                    
-                    index=ID_NO.index(os)
-                    
-                    print("your registration code is:",RCODE[index])
-                    
-                    break
-            
-            if(os!=details):
+            c.execute("select R_CODE where I_D=%s;",(details,))
+            rc=c.fetchall()
+            print("your code is",rc[0][0])
+            if(rc=[]):
                 
                 print("registration no. not found!! try again!!")
             
