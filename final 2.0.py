@@ -5,10 +5,11 @@ print("░░████╔═████║░██╔══╝░░██�
 print("░░╚██╔╝░╚██╔╝░███████╗███████╗╚█████╔╝╚█████╔╝██║░╚═╝░██║███████╗")
 print("░░░╚═╝░░░╚═╝░░╚══════╝╚══════╝░╚════╝░░╚════╝░╚═╝░░░░░╚═╝╚══════╝")
 
-
+mon=''#dp
 os=""
 x=0
 z=0
+datu=""#dp
 size=0
 save=""
 verify=""
@@ -114,7 +115,7 @@ def state():
         return state
 def datte():
     libra=['0','1','2','3','4','5','6','7','8','9']
-    
+    lib=[5,8]
     while 2>1:
       
       datu=input("ENTER THE DATE OF REGISTRATION[DATE FORMAT-- (YYYY-MM-DD)]-")
@@ -124,9 +125,9 @@ def datte():
       if(len(datu)==10):
           
           hey=0
-          
+          k=1
           for i in datu:
-              if i=='-':
+              if i=='-' and k in lib:
                   pass
               
               elif i in libra:
@@ -137,18 +138,34 @@ def datte():
                   print("ENTER NUMBERS AND CORRECT FORMAT ONLY!!!!!!!!")
                   spac()
                   break
+              k+=1
           if hey==0:
+               try:
                  dattte=datetime.date(int(datu[0:4]),int(datu[5:7]),int(datu[8:10]))
+
                  if dattte>datetime.date.today():
                      print("THIS DATE DOESN'T EXIST YET! |PLEASE ENTER A VALID DATE!!!")
                      spac()    
+
                  elif dattte<datetime.date(1900,12,31):
                      print("PLEASE ENTER A VALID DATE!!!!!")
                      spac()
-                 else:
-                     return dattte
-                     break
 
+                 else:
+                     if()
+                     return dattte
+                     
+                     break
+               except Exception as er:
+
+                   if str(er)=="month must be in 1..12":
+                                   print("ERROR:MONTH MUST BE BETWEEN 1-12|[IT CAN'T BE-",datu[5:7],"]|!!!!")
+                                   spac()
+
+                   elif str(er)=="day is out of range for month":
+                                   print("ERROR:THE DAY IS OUT OF RANGE FOR MONTH!!!!!")
+                                   spac()
+                   
       
       else:
           print("CORRECT FORMAT ONLY!!!!!!!!")
@@ -174,9 +191,10 @@ def slot():
             raise AssertionError
     else:
         length=len(slot)
-        while(length!=3):
-            length=len(slot)
+        while(length<3):
+            
             slot="0"+slot
+            length=len(slot)
         
         return slot
 def serial():
@@ -416,7 +434,7 @@ while(x!="bye"):
                 
                 #rcode-name-state-dor-id-slot-serial
                 
-                code=(state[0]+state[2]+slot+chr(64+int(month))+serial+year)
+                code=(state[0]+state[2]+slot+chr(64+int(datu[5:7])) +serial+datu[0:4])
                 
                 c.execute("INSERT INTO registry VALUES(%s,%s,%s,%s,%s,%s,%s);",(code,name,state,date,ID,slot,serial))
                 
