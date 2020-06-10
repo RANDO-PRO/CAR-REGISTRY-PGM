@@ -686,25 +686,19 @@ while(x!="bye"):
                     
                     while(bat!="no"):
                         
-                        car=0
                         
                         salemonth=input("sale of which month(enter month no.)")
-                        
-                        for per in MONTH:
-                            
-                            if(per==salemonth):
-                                
-                                car=car+1
-                        
+                       
                         if(salemonth==""):
                             
                             print("empty")
+                        c.execute("select count(*) from hello where name like %%s%;",(salemonth,))
                         
-                        elif(per!=salemonth):
-                            
-                            print("month doesnt exist")
+                        car=c.fetchall()
+                        if(car[0][0]=0):
+                            print("no sale in this month")
                         
-                        print("your sale for this month is",car)
+                        print("your sale for this month is",car[0][0])
                         
                         while(1>0):
                             
@@ -729,21 +723,14 @@ while(x!="bye"):
                     while(cat!="no"):
                         
                         saleyear=input("sale of which year(enter year no.)")
-                        
-                        for fer in YEAR:
-                            
-                            if(fer==saleyear):
-                                
-                                car=car+1
-                        
-                        if(sale==""):
-                            
                             print("empty")
+                         c.execute("select count(*) from hello where name like %%s%;",(saleyear))
                         
-                        elif(car==0):
-                            print("sale for year doesnt exist")
+                        car=c.fetchall()
+                        if(car[0][0]=0):
+                            print("no sale in this year
                         
-                        print("your sale for this year is",car)
+                        print("your sale for this year",car[0][0])
                         
                         while(go>0):
                             
