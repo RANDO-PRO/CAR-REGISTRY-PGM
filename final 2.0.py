@@ -5,11 +5,11 @@ print("░░████╔═████║░██╔══╝░░██�
 print("░░╚██╔╝░╚██╔╝░███████╗███████╗╚█████╔╝╚█████╔╝██║░╚═╝░██║███████╗")
 print("░░░╚═╝░░░╚═╝░░╚══════╝╚══════╝░╚════╝░░╚════╝░╚═╝░░░░░╚═╝╚══════╝")
 
-mon=''#dp
+
 os=""
 x=0
 z=0
-datu=""#dp
+datu="" 
 size=0
 save=""
 verify=""
@@ -79,52 +79,46 @@ def spac():
     print()
     print()
     print()
-def orderby(something):
-    c.execute("order by %s",(something,))
-    odata=fetchall()
-    if(odata=[]):
-        print("feild doesnt exist")
-        raise AssertionError
-    for hjy in odata:
-        print(hjy)
-def fname():
-    fname=input("enter your first name")
+
+def fnamee():
+    fname=input("ENTER YOUR FIRST NAME:")
     if(fname=="back"):
         return baitB
     elif(fname=="again"):
         return baitA
     elif(fname.isalpha()==False):
-        print("value should not be numeric")
+        print("VALUE SHOULD NOT BE NUMERIC!!!!!")
         raise ValueError
     else:
         return fname
-def sname():
-    sname=input("enter your first name")
+def snamee():
+    sname=input("ENTER YOUR FAMILY NAME:")
     if(sname=="back"):
         return baitB
     elif(fname=="again"):
         return baitA
     elif(sname.isalpha()==False):
-        print("value should not be numeric")
+        print("VALUE SHOULD NOT BE NUMERIC!!!!!")
         raise ValueError
     else:
         return sname
-def state():
-    state=input("enter your state")
+def statee():
+    state=input("ENTER THE STATE:")
+    
     if(state=="back"):
         return baitB
     elif(fname=="again"):
         return baitA
     elif(state.isalpha()==False):
-        print("value should not be numeric")
+        print("VALUE SHOULD NOT BE NUMERIC!!!!!!!")
         raise ValueError
     else:
         return state
 def datte():
     libra=['0','1','2','3','4','5','6','7','8','9']
     lib=[5,8]
-    while 2>1:
-      
+    while True:
+      global datu
       datu=input("ENTER THE DATE OF REGISTRATION[DATE FORMAT-- (YYYY-MM-DD)]-")
       
       datu=datu.strip()
@@ -159,7 +153,8 @@ def datte():
                      spac()
 
                  else:
-                     if()
+                     
+
                      return dattte
                      
                      break
@@ -181,7 +176,7 @@ def datte():
 
 
 
-def slot():
+def slote():
     slot=input("enter slot number")
     if(slot=="back"):
         return baitB
@@ -204,7 +199,7 @@ def slot():
             length=len(slot)
         
         return slot
-def serial():
+def seriale():
     serial=input("enter slot number")
     if(serial=="back"):
         return baitB
@@ -252,7 +247,7 @@ while(x!="bye"):
             while(ok=="again"):
                 
                 try:
-                    fname=fname()
+                    fname=fnamee()
                     
                     ok=input("press any key ")
                     
@@ -275,7 +270,7 @@ while(x!="bye"):
             
             while(ok=="again"):
                 
-                sname=sname()
+                sname=snamee()
                 
                 ok=input("press any key ")
             
@@ -291,7 +286,7 @@ while(x!="bye"):
             
             while(ok=="again"):
                 
-                state=state()
+                state=statee()
                 
                 if(state=="back"):
                     break
@@ -313,7 +308,7 @@ while(x!="bye"):
                 
                 try:
                     
-                    slot=slot()
+                    slot=slote()
                     
                     slot2=int(slot)
                     
@@ -440,6 +435,7 @@ while(x!="bye"):
                 
                 
                 #rcode-name-state-dor-id-slot-serial
+                print("datu",datu)
                 
                 code=(state[0]+state[2]+slot+chr(64+int(datu[5:7])) +serial+datu[0:4])
                 
