@@ -624,10 +624,10 @@ while(x!="bye"):
             if(check=="again"):
                 continue
             
-            c.execute("select R_CODE where I_D=%s;",(details,))
+            c.execute("select R_CODE from registry where I_D=%s;",(details,))
             rc=c.fetchall()
             print("your code is",rc[0][0])
-            if(rc=[]):
+            if(rc==[]):
                 
                 print("registration no. not found!! try again!!")
             
@@ -688,16 +688,18 @@ while(x!="bye"):
                         
                         
                         salemonth=input("sale of which month(enter month no.)")
-                       
+                        salemonth=salemonth.zfill(2)
+                        slm = "%"+"-"+salemonth+"-"+"%"
                         if(salemonth==""):
                             
                             print("empty")
-                        c.execute("select count(*) from hello where name like %%s%;",(salemonth,))
-                        
+
+                        c.execute("select count(*) from registry where D_O_R like %s;",(slm,))
+                        print("yes")
                         car=c.fetchall()
-                        if(car[0][0]=0):
-                            print("no sale in this month")
-                        c.execute(" select * from hello group by name having name like %%s%;",(saleyear,))
+                        if(car[0][0]==0):
+                                  print("no sale in this month")
+                        c.execute("select * from registry group by D_O_R having D_O_R like %s",(slm,))
                         dcar=c.fetchall()
                         print("rcode | name |state |date of registration| id | slot| serial |")
                         for alldata in dcar:
@@ -728,17 +730,17 @@ while(x!="bye"):
                     while(cat!="no"):
                         
                         saleyear=input("sale of which year(enter year no.)")
-                            print("empty")
-                        c.execute("select count(*) from hello where name like %%s%;",(saleyear,))
+                        print("empty")
+                        c.execute("select count(*) from registry where D_O_R like '%-%s-%';",(saleyear,))
                         
                         car=c.fetchall()
-                        c.execute(" select * from hello group by name having name like %%s%;",(saleyear,))
+                        c.execute("select * from registry group by name having D_O_R like '%s-%';",(saleyear,))
                         dcar=c.fetchall()
                         print("rcode | name |state |date of registration| id | slot| serial |")
                         for alldata in dcar:
                             print(alldata)
-                        if(car[0][0]=0):
-                            print("no sale in this year
+                        if(car[0][0]==0):
+                            print("no sale in this year")
                         
                         print("your sale for this year",car[0][0])
                         
@@ -811,8 +813,8 @@ while(x!="bye"):
                 else:
                     continue
             
-            except:
-                print("oops error occured")
+            except Exception as haha :
+                print(haha)
                     
                     
                             
