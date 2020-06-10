@@ -637,7 +637,14 @@ while(x!="bye"):
                         car=c.fetchall()
                         c.execute("select * from registry group by name having D_O_R like '%s-%';",(saleyear,))
                         dcar=c.fetchall()
-                        print("rcode | name |state |date of registration| id | slot| serial |")
+                        print("|-REGISTRATION CODE-|-NAME-|-STATE-|-DATE OF REGISTRATION-|-ID-|-SLOT-|-SERIAL-|")
+                        i=""
+                        for alldata in dcar:
+                            for sdata in alldata:
+                                sdata="|-"+sdata+"-|"
+                                i=i+sdata
+                            print(i)
+
                         for alldata in dcar:
                             print(alldata)
                         if(car[0][0]==0):
