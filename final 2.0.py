@@ -62,6 +62,7 @@ RCODE=[]
 baitB="back"
 baitA="again"
 import mysql.connector
+import datetime
 m=mysql.connector.connect(user='root', password='tiger', auth_plugin='mysql_native_password')
 c=m.cursor()
 try:
@@ -74,6 +75,11 @@ try:
 except:
     pass
 #rcode-name-state-dor-id-slot-serial
+def spac():
+    print()
+    print()
+    print()
+
 def fname():
     fname=input("enter your first name")
     if(fname=="back"):
@@ -107,67 +113,51 @@ def state():
         raise ValueError
     else:
         return state
-def month():
-    month=input("enter your first name")
-    if(month=="back"):
-        return baitB
-    elif(month=="again"):
-        return baitA
-    elif(month.isnumeric()==False):
-        print("value should be numeric")
-        raise ValueError
-    elif(int(month)<1):
-        print("oops! month does not exist")
-        raise AssertionError
-    elif(int(month)>12):
-        print("month doesn't exist! ENTER AGAIN!!!")
-        raise AssertionError
-    else:
-        return month
-def day():
-    day=input("enter the day of the month")
-    day2=int(day)
-    if(day=="back"):
-        return baitB
-    elif(day=="again"):
-        return baitA
-    elif(day.isnumeric()==False):
-        print("value should be numeric")
-        raise ValueError
-    elif(day2<0):
-        print("day doesn't exist! ENTER AGAIN!!")
-        raise AssertionError
-    elif(int(year)%4!=0 and month=="2" and day2>28):
-        print("day doesn't exist! ENTER AGAIN!!")
-        raise AssertionError
-    elif(int(year)%4==0 and month=="2" and int(day)>29):
-        print("day doesni't exst! ENTER AGAIN!!")
-        raise AssertionError
-    elif(int(month)==8 and day2>31):
-        print("day doesn't exist! ENTER AGAIN!!")
-        raise AssertionError
-    elif(int(month)%2!=0 and day2>30):
-        print("day doesn't exist! ENTER AGAIN!!")
-        raise AssertionError
-    elif(day2>31):
-        print("day doesn't exist! ENTER AGAIN!!")
-        raise AssertionError
-    elif(day=="0"):
-        print("day doesn't exist! ENTER AGAIN!!")
-        raise AssertionError
-    else:
-        return day
-def year():
-    year=input("enter year")
-    if(year=="back"):
-        return baitB
-    elif(year=="again"):
-        return baitA
-    elif(year.isnumeric()==False):
-        print("value should be numeric")
-        raise ValueError
-    else:
-        return year
+def datte():
+    libra=['0','1','2','3','4','5','6','7','8','9']
+    
+    while 2>1:
+      
+      datu=input("ENTER THE DATE OF REGISTRATION[DATE FORMAT-- (YYYY-MM-DD)]-")
+      
+      datu=datu.strip()
+      
+      if(len(datu)==10):
+          
+          hey=0
+          
+          for i in datu:
+              if i=='-':
+                  pass
+              
+              elif i in libra:
+                  pass
+              
+              else:
+                  hey=1
+                  print("ENTER NUMBERS AND CORRECT FORMAT ONLY!!!!!!!!")
+                  spac()
+                  break
+          if hey==0:
+                 dattte=datetime.date(int(datu[0:4]),int(datu[5:7]),int(datu[8:10]))
+                 if dattte>datetime.date.today():
+                     print("THIS DATE DOESN'T EXIST YET! |PLEASE ENTER A VALID DATE!!!")
+                     spac()    
+                 elif dattte<datetime.date(1900,12,31):
+                     print("PLEASE ENTER A VALID DATE!!!!!")
+                     spac()
+                 else:
+                     return dattte
+                     break
+
+      
+      else:
+          print("CORRECT FORMAT ONLY!!!!!!!!")
+          spac()
+
+
+
+
 def slot():
     slot=input("enter slot number")
     if(slot=="back"):
@@ -357,105 +347,16 @@ while(x!="bye"):
                 break
             
             
-            #year
+            #date
             
             ok="again"
             
             while(ok=="again"):
                 
-                try:
-                    
-                    year=input("ENTER YEAR: ")
-                    
-                    if(year=="back"):
-                        
-                        break
                 
-                except ValueError:
-                    
-                    print("OOPS! ERROR!,TRY AGAIN! AVOID USE OF SPECIAL CHARACTER ")
-                    
-                    continue
-                
-                except AssertionError:
-                    
-                    continue
-                
-                ok=input("press any key to continue ")
-            
-            if(year=="back"):
-                
-                break
-            
-            
-            #month
-            
-            ok="again"
-            
-            while(ok=="again"):
-                
-                try:
-                    
-                    month=input("ENTER MONTH NO.: ")
-                    
-                    if(month=="back"):
-                        
-                        break
-                
-                except ValueError:
-                    
-                    print("OOPS! ERROR!,TRY AGAIN! AVOID USE OF SPECIAL CHARACTER ")
-                    
-                    continue
-                
-                except AssertionError:
-                    
-                    continue
-                
-                ok=input("press any key to continue ")
-            
-            if(month=="back"):
-                
-                break
-            
-            
-            #day
-            
-            ok="again"
-            
-            while(ok=="again"):
-                
-                day=input("ENTER DAY OF THE MONTH: ")
-                
-                day2=int(day)
-                
-                try:
-                    if(day=="back"):
-                        
-                        break
-                    else:
-                        
-                        ok=input("press any key to continue ")
-                
-                except ValueError:
-                    
-                    print("OOPS! ERROR!,TRY AGAIN! AVOID USE OF SPECIAL CHARACTER ")
-                    
-                    continue
-                
-                except AssertionError:
-                    
-                    continue
-                    
-                    print("OOPS! ERROR!,TRY AGAIN! AVOID USE OF SPECIAL CHARACTER ")
-                    
-                    continue
-            if(day=="back"):
-                
-                break
-            
-            date=year+"-"+month+"-"+day
-            
+                    date=datte()
+
+                    ok=input("press any key to continue ")
             
             #id
             
