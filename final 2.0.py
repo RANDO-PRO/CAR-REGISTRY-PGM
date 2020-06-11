@@ -158,8 +158,8 @@ def orderby(something):
     if(odata==[]):
         print("feild doesnt exist")
         raise AssertionError
-    for hjy in odata:
-        print(hjy)
+    prip(odata)
+        
 
 def fnamee():
     fname=input("ENTER FIRST NAME:")
