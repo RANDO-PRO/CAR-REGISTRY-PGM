@@ -1,10 +1,21 @@
+#-----------------------------------------------------------IMPORTS-------------------------------------------------------------
+import mysql.connector
+import datetime
+import time
 
+#-------------------------------------------------------------------------------------------------------------------------------
+
+
+#----------------------------------------------------------WELCOME---------------------------------------------------------------
 print("░██╗░░░░░░░██╗███████╗██╗░░░░░░█████╗░░█████╗░███╗░░░███╗███████╗")
 print("░██║░░██╗░░██║██╔════╝██║░░░░░██╔══██╗██╔══██╗████╗░████║██╔════╝")
 print("░╚██╗████╗██╔╝█████╗░░██║░░░░░██║░░╚═╝██║░░██║██╔████╔██║█████╗░░")
 print("░░████╔═████║░██╔══╝░░██║░░░░░██║░░██╗██║░░██║██║╚██╔╝██║██╔══╝░░")
 print("░░╚██╔╝░╚██╔╝░███████╗███████╗╚█████╔╝╚█████╔╝██║░╚═╝░██║███████╗")
 print("░░░╚═╝░░░╚═╝░░╚══════╝╚══════╝░╚════╝░░╚════╝░╚═╝░░░░░╚═╝╚══════╝")
+time.sleep(0.56)
+#-------------------------------------------------------------------------------------------------------------------------------
+
 #---------------------------------------------------------VARIABLES-------------------------------------------------------------
 
 os=""
@@ -62,9 +73,9 @@ ID_NO=[]
 RCODE=[]
 baitB="back"
 baitA="again"
+
 #---------------------------------------------CONNECTING TO mysQL----------------------------------------------------------------------
-import mysql.connector
-import datetime
+
 m=mysql.connector.connect(user='root', password='tiger', auth_plugin='mysql_native_password')
 c=m.cursor()
 try:
@@ -78,10 +89,69 @@ except:
     pass
 #rcode-name-state-dor-id-slot-serial
 #_______________________________________________________FUNCTION DEFINE______________________________________________________________
+
 def spac():
     print()
     print()
     print()
+
+def spac2():
+    print()
+    print()
+
+def prip(listt):
+
+    print("", "_"*163)
+
+    print("|_R_CODE___________|_NAME", "_"*45+"_|_STATE", "_"*24 +
+          "|_D_O_R________|_I_D________________|_SERIAL_N_O __|_SLOT___|", "T.ENTERIES-", len(listt))
+
+    for i in range(len(listt)):
+
+        print("|", listt[i][0], " "*(15-len(listt[i][0])), "|", listt[i][1], " "*(49-len(listt[i][1])), "|", listt[i][2], " "*(28-len(listt[i][2])), "|", listt[i]
+              [3], "  |", listt[i][4], " "*(17-len(listt[i][4])), "|", listt[i][5], " "*(11-len(str(listt[i][5]))), "|", listt[i][6], " "*(5-len(str(listt[i][6]))), "|")
+        if i == (len(listt)-1):
+            print("╹"+"─"*163+"╹")
+    spac2()
+
+def infpri(L=[], rp=''):  # r_code,NAME,STATE,D_O_R,I_D,SERIAL_N_O,SLOT
+        start = 'SELECT * FROM registry WHERE '
+        if rp == 'AND' or rp == 'and':
+             rp = ' AND '
+        elif rp == 'OR' or rp == 'or':
+              rp = ' OR '
+
+        hop = ' LIKE '
+
+        K = ['R_CODE', 'NAME', 'STATE', 'D_O_R', 'I_D', 'SERIAL_N_O', 'SLOT']
+        ho = []
+        a = 0
+        for i in L:
+             if(i != ''):
+                  ho.append([i, a])
+             a += 1
+        a = ho
+    
+
+        for he in ho:
+
+    
+                start += K[he[1]]+hop+"'"
+                start += he[0]+"'"
+                if(he != ho[-1]):
+                      start += rp
+                else:
+                      start += ';'
+
+        
+        c.execute(start)
+
+        pop = c.fetchall()
+
+        return pop
+
+
+
 def orderby(something):
     c.execute("SELECT * FROM REGISTRY ORDER BY %s;",(something,))
     odata=c.fetchall()
@@ -90,37 +160,46 @@ def orderby(something):
         raise AssertionError
     for hjy in odata:
         print(hjy)
+
 def fnamee():
-    fname=input("ENTER YOUR FIRST NAME:")
+    fname=input("ENTER FIRST NAME:")
+    spac()
     if(fname=="back"):
         return baitB
     elif(fname=="again"):
         return baitA
     elif(fname.isalpha()==False):
         print("VALUE SHOULD NOT BE NUMERIC!!!!!")
+        spac()
         raise ValueError
     else:
+        
         return fname
+
 def snamee():
     sname=input("ENTER YOUR FAMILY NAME:")
+    spac()
     if(sname=="back"):
         return baitB
     elif(fname=="again"):
         return baitA
     elif(sname.isalpha()==False):
         print("VALUE SHOULD NOT BE NUMERIC!!!!!")
+        spac()
         raise ValueError
     else:
         return sname
+
 def statee():
     state=input("ENTER THE STATE:")
-    
+    spac()
     if(state=="back"):
         return baitB
     elif(fname=="again"):
         return baitA
     elif(state.isalpha()==False):
         print("VALUE SHOULD NOT BE NUMERIC!!!!!!!")
+        spac()
         raise ValueError
     else:
         return state
@@ -129,8 +208,8 @@ def datte():
     lib=[5,8]
     while True:
       global datu
-      datu=input("ENTER THE DATE OF REGISTRATION[DATE FORMAT-- (YYYY-MM-DD)]-")
-      
+      datu=input("ENTER THE DATE OF REGISTRATION[DATE FORMAT- YYYY-MM-DD] :")
+      spac()
       datu=datu.strip()
       
       if(len(datu)==10):
@@ -168,6 +247,7 @@ def datte():
                      return dattte
                      
                      break
+               
                except Exception as er:
 
                    if str(er)=="month must be in 1..12":
@@ -178,8 +258,10 @@ def datte():
                                    print("ERROR:THE DAY IS OUT OF RANGE FOR MONTH!!!!!")
                                    spac()
                except KeyboardInterrupt:
-                   print("don't use random keys")
+                   print("UNEXPECTED ERROR")
+                   spac()
                    continue
+
                    
       
       else:
@@ -190,19 +272,25 @@ def datte():
 
 
 def slote():
-    slot=input("enter slot number")
+    slot=input("ENTER SLOT NUMBER:")
+    slot=slot.lower()
+    spac()
     if(slot=="back"):
         return baitB
     elif(slot=="again"):
         return baitA
     elif(slot.isnumeric()==False):
-            print("value should be numeric")
+            print("SLOT NUMBER CAN ONLY BE NUMERIC!!!!!!")
+            spac()
             raise AssertionError
+
     elif(int(slot)<1):
-            print("value cant be 0.ENTER AGAIN!!")
+            print("SLOT NUMBER CAN'T BE LESS THAN 0!!!!!")
+            spac()
             raise AssertionError
     elif(int(slot)>999):
-            print("slot no. cannot be more than 999!!! ENTER AGAIN!!!!")
+            print("SLOT NUMBER CAN'T BE MORE THAN 999!!!!!")
+            spac()
             raise AssertionError
     else:
         length=len(slot)
@@ -213,16 +301,19 @@ def slote():
         
         return slot
 def seriale():
-    serial=input("enter slot number")
+    serial=input("ENTER SERIAL NUMBER:")
+    spac()
     if(serial=="back"):
         return baitB
     elif(serial=="again"):
         return baitA
     elif(serial.isnumeric()==False):
-        print("value should be numeric")
+        print("SERIAL NUMBER CAN ONLY BE NUMERIC!!!!!!!")
+        spac()
         raise AssertionError
-    elif(int(serial)<10000):
-        print("oops!! serial no. cannot be more than 9999! ENTER AGAIN!! ")
+    elif(int(serial)>10000):
+        print("SERIAL NUMBER CAN'T BE MORE THAN 10000!!!!!!!")
+        spac()
         raise AssertionError
     else:
         size=len(serial)
@@ -235,11 +326,13 @@ def seriale():
 while(x!="bye"):
     
     car=0
+    spac2()
+    print("-"*120)
+
+    x=input("1. REGISTER VEHICLE \n\n2. GET CUSTOMER DETAILS(REGISTRATION NO. REQUIRED) \n\n3. CHECK REGISTRATION NO.(ID DETAILS REQUIRED) \n\n4. MODIFY DATA \n\n5. SALE OF CARS \n\n6. SORT \n\n7. HELP \n\nCHOOSE[ENTER 'BYE' TO EXIT] :")
+    x=x.upper()
     
-    print("1. REGISTER VEHICLE \n2. GET CUSTOMER DETAILS(REGISTRATION NO. REQUIRED) \n3. CHECK REGISTRATION NO.(ID DETAILS REQUIRED) \n4. MODIFY DATA \n5. SALE OF CARS \n6. SORT \n7. HELP")
-    
-    x=input("choose from option enter 'bye' to exit")
-    
+    spac()
     if(x=="1"):
         
         while(save!="back"):
@@ -254,7 +347,7 @@ while(x!="bye"):
             
             print("*"*95)
             
-            
+            spac()
             #fname
             
             while(ok=="again"):
@@ -272,47 +365,74 @@ while(x!="bye"):
                 
                 except ValueError:
                     continue
-            
+                
             if(fname=="back"):
+                        spac()
                         break
-            
-            
+           
+            else:
+                fname=fname.upper()
+                spac2()
             #sname
             
             ok="again"
             
             while(ok=="again"):
                 
-                sname=snamee()
+                try:
+                    sname=snamee()
+                    
+                    ok=input("press any key ")
+                    
+                    if(sname=="back"):
+                        break
                 
-                ok=input("press any key ")
+                except AssertionError:
+                    continue
+                
+                except ValueError:
+                    continue
+                
             
             if(sname=="back"):
-                break
+                    spac()
+                    break
+                
+            else:
+                 sname=sname.upper()
+                 name=fname+" "+sname
+                 spac2()
             
-            name=fname+" "+sname
-            
-            
+            if len(name)>45:
+                name=name[0:46]
+
+
             #state
             
             ok="again"
             
             while(ok=="again"):
+               try: 
+                    state=statee()
                 
-                state=statee()
+                    if(state=="back"):
+                        break
                 
-                if(state=="back"):
-                    break
-                
-                ok=input("press any key to continue ")
+                    ok=input("press any key to continue ")
+               except ValueError:
+                      continue
+               
             
             if(state=="back"): 
-                
+                spac()
                 break
+            else:
+                 state=state.upper()
+                 spac2()
             
-            state=state.upper()
-            
-            
+            if len(state)>22:
+                state=state[0:23]
+
             #slot
             
             ok="again"
@@ -328,23 +448,25 @@ while(x!="bye"):
                     if(slot=="back"):
                         
                         break
-                
+                    ok = input("press any key to continue")
+
                 except ValueError:
                     
-                    print("OOPS! ERROR!,TRY AGAIN! AVOID USE OF SPECIAL CHARACTER ")
-                    
+                    print("ERROR:AVOID USE OF SPECIAL CHARACTER!!!!!!!!")
+                    spac()
                     continue
                 
                 except AssertionError:
                     
                     continue
                 
-                ok=input("press any key to continue")
-            
+
             if(slot=="back"):
-                
+                spac()
                 break
             
+            else:
+                spac2()
             
             #serial
             
@@ -354,9 +476,7 @@ while(x!="bye"):
                 
                 try:
                     
-                    serial=input("ENTER SERIAL NO. (not more than 4): ")
-                    
-                    serial2=int(serial)
+                    serial=seriale()
                     
                     if(serial=="back"):
                         
@@ -375,9 +495,10 @@ while(x!="bye"):
                     continue
             
             if(serial=="back"):
-                
+                spac()
                 break
-            
+            else:
+                spac2()
             
             #date
             
@@ -386,10 +507,12 @@ while(x!="bye"):
             while(ok=="again"):
                 
                 
+                
                     date=datte()
-
+                    
                     ok=input("press any key to continue ")
-            
+                    time.sleep(0.57)
+                    spac2()
             #id
             
             ok="again"
@@ -398,82 +521,128 @@ while(x!="bye"):
                 
                 try:
                     
-                    ID=input("ENTER ID NO.(adhaar card or voter id card no.): ")
-                    
+                    ID=input("ENTER ID NUMBER(ADHAAR CARD NO./VOTER ID CARD NO.) :")
+                    spac()
                     if(ID=="back"):
                         break
-                
+
+                    
+                    elif ID.isnumeric()==False:
+                                 print("THE ADHAAR CARD NUMBER IS FALSE!!!![IT CAN ONLY BE NUMBERIC]")
+                                 spac2()
+                    elif len(ID)==12 or len(ID)==10:
+                                  decider=infpri(["","","","",ID,"",""],"and")
+                                  if decider==[]:
+                                      ok=input("press any key to continue ")
+                                  else:
+                                       print("AN ID SIMILAR TO THIS ALREADY EXISTS!!!!!!PLEASE CHECK IF REGISTRATION HAS ALREADY BE DONE OR ENTER A CORRECT ID!!!!!!!!!!!!!!!!!!!")
+                                       time.sleep(0.64)
+                                       spac2()
+                                       prip(decider)    
+                    else:
+                        print("THE NUMBER ENTERED IS INCORRECT....ADHAAR CARD-12(DIGITS)|VOTERID-10(DIGITS)")
+                        spac2()            
                 except ValueError:
-                    print("OOPS! ERROR!,TRY AGAIN! AVOID USE OF SPECIAL CHARACTER ")
+                    print("OOPS! ERROR!TRY AGAIN! AVOID USE OF SPECIAL CHARACTER ")
                     
                     continue
                 
                 except AssertionError:
                     
                     continue
+
                 
-                ok=input("press any key to continue ")
+                
             
             if(ID=="back"):
-                
+                spac()
                 break
+            else:
+                spac2()
             
             print("="*95)
             
-            print("STATE:",state,"\nNAME:",name,"\nSLOT NO.:",slot,"\nSERIAL NO.:",serial,"\nDATE:",date,"\nID NO.:",ID,"\nCHECK ALL THE INFORMATION!!!!!!!")
-            
-            print("1.ENTER 'reenter' TO ENTER AGIN \n2. ENTER 'back' TO QUIT TO MAIN MENU")
-            
+            print("STATE:",state,"\nNAME:",name,"\nSLOT NO.:",slot,"\nSERIAL NO.:",serial,"\nDATE:",date,"\nID NO.:",ID,"\nCHECK ALL THE INFORMATION!!!!!!!\n")
+            spac2()
+            print("+"*95)
+            time.sleep(0.23)
+            print("1.ENTER 'reenter' TO ENTER AGAIN \n2. ENTER 'back' TO QUIT TO MAIN MENU")
+            print("+"*95)
+            print()
+            spac2()
             print("="*95)
-            
+            time.sleep(0.67)
             while(True):
                 
-                save=input("do you want to save data?? yes/no: ")
-                
+                save=input("DO YOU WANT TO SAVE THE DATA??[y/n/yes/no] :")
+                spac2()
                 save=save.lower()
                 
-                if(save=="yes" or save=="no" or save=="back" or save=="reenter"):
-                    
+                if(save=="yes" or save=="no" or save=='y' or save=='n' or save=="back" or save=="reenter"):
+                    time.sleep(0.12)
+                    spac2()
                     break
                 
                 else:
                     
-                    print("enter from the available option only!!")
-                    
-            save=save.lower()
+                    print("CHOOSE FROM THE OPTIONS ONLY!!!!!!!!!")
+                    spac2()
             
-            if(save=="yes"):
-                
-                print("data registered!!!")
-                
+            try:
+                if(save=="yes" or save=='y'):
                 
                 #rcode-name-state-dor-id-slot-serial
-                print("datu",datu)
                 
-                code=(state[0]+state[2]+slot+chr(64+int(datu[5:7])) +serial+datu[0:4])
-                
-                c.execute("INSERT INTO registry VALUES(%s,%s,%s,%s,%s,%s,%s);",(code,name,state,date,ID,slot,serial))
-                
-                m.commit()
-                
-                print("your registration code is ",code)
-                
-                press=input("press any key to continue")
-                
-                break
-                
+              
+                          code=(state[0]+state[2]+slot+chr(64+int(datu[5:7])) +serial+datu[0:4])
+                          checker=infpri([code,"","","","","",""],'and')
+                          
             
-            elif(save=="back"):
-                break
+
+                          c.execute("INSERT INTO registry VALUES(%s,%s,%s,%s,%s,%s,%s);",(code,name,state,date,ID,serial,slot))
+                  
+                          m.commit()
+                          time.sleep(0.15)
+                          print("REGESTRATION CODE IS:",code)
+                          print()
+                          press=input("press any key to continue")
+                          spac2()
+                          time.sleep(0.22)
+                          print("REGESTRATION COMPLETE!!!!!!!!!!")
+                          spac2()
+                          print("QUITING TO MAIN MENU.........")
+                          time.sleep(8)
+                          spac2()
+                          break
+                     
+                elif(save=="back"):
+                        break
             
-            elif(save=="reenter"):
-                continue
+                elif(save=="reenter"):
+                         continue
             
-            elif(save=="no"):
-                print("not saved")
-                continue
+                elif(save=="no" or save=='n'):
+                           print("CANCELLED!!!!!!!!")
+                           spac2()
+                           break
         
-        print("quiting to main menu!!!")
+            except Exception as hmmm:
+                               
+                         print("UNEXPECTED ERROR:",hmmm)
+                         spac2()
+                         print("THERE ALREADY EXISTS A REGISTRATION WITH THE SAME INFO!!!!IF YOU ARE TRYING TO CHANGE THE NAME THEN GO TO MODIFY DATA OR ELSE RE-ENTER CORRECT DATA!!!!!!!!!!!!!!!!!!!!")
+                         time.sleep(0.34)
+                         spac2()
+                         prip(checker)  
+                         time.sleep(0.15)
+                         print("CANCELLED")
+                         spac2()
+                         print("QUITING TO MAIN MENU.........")
+                         time.sleep(0.85)
+                         spac2()
+                         break
+            break             
+            
     
     elif(x=="2"):
         
