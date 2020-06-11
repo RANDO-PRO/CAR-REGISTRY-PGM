@@ -83,7 +83,7 @@ def spac():
     print()
     print()
 def orderby(something):
-    c.execute("order by %s",(something,))
+    c.execute("SELECT * FROM REGISTRY ORDER BY %s;",(something,))
     odata=c.fetchall()
     if(odata==[]):
         print("feild doesnt exist")
@@ -760,7 +760,7 @@ while(x!="bye"):
                     
                             
     elif(x=="6"):
-        ok="again"
+        ok="y"
         while(ok=="y"):
             check="again"
             try:
@@ -774,11 +774,11 @@ while(x!="bye"):
                 elif(check=="again"):
                     continue
                 if(sort=="1"):
-                    sorted=orderby(NAME)
+                    orderby("NAME")
                 elif(sort=="2"):
-                    sorted=orderby(STATE)
+                    orderby("STATE")
                 elif(sort=="3"):
-                    sorted=orderby(D_O_R)
+                    orderby("D_O_R")
                 else:
                     print("choose from the given option")
                     continue
