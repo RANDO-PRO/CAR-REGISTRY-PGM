@@ -227,7 +227,7 @@ while(x!="bye"):
     
     car=0
     
-    print("1. REGISTER VEHICLE \n2. GET CUSTOMER DETAILS(REGISTRATION NO. REQUIRED) \n3. CHECK REGISTRATION NO.(ID DETAILS REQUIRED) \n4. MODIFY DATA \n5. SALE OF CARS \n6. HELP")
+    print("1. REGISTER VEHICLE \n2. GET CUSTOMER DETAILS(REGISTRATION NO. REQUIRED) \n3. CHECK REGISTRATION NO.(ID DETAILS REQUIRED) \n4. MODIFY DATA \n5. SALE OF CARS \n6. SORT \n7. HELP")
     
     x=input("choose from option enter 'bye' to exit")
     
@@ -751,11 +751,28 @@ while(x!="bye"):
                     
                             
     elif(x=="6"):
+        ok="again"
+        while(ok="again"):
+        print("SORT BY: \n1. NAME \n2 STATE \n2 DATE")
+        sort=input("choose a option no.")
+        ok=input("check and press any key to continue \nenter 'again' to reenter")
+        if(sort="back"):
+            break
+        if(sort=="1"):
+            sorted=orderby(NAME)
+        elif(sort=="2"):
+            sorted=orderby(STATE)
+        elif(sort=="3"):
+            sorted=orderby(D_O_R)
+        else:
+            print("choose from the given option")
+            continue
+    elif(x=="7"):
         print("="*95)
         
         print("FOR HELP CONTACT US ON \nEMAIL: anything@example.com \nCUSTOMER CARE: 110-XX-XX-XXX")
         
-        print("="*95)                
+        print("="*95)
     else:
         
         continue
