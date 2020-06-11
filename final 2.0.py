@@ -104,7 +104,7 @@ def prip(listt):
     print("", "_"*163)
 
     print("|_R_CODE___________|_NAME", "_"*45+"_|_STATE", "_"*24 +
-          "|_D_O_R________|_I_D________________|_SERIAL_N_O __|_SLOT___|", "T.ENTERIES-", len(listt))
+          "|_D_O_R________|_I_D________________|_SERIAL_N_O __|_SLOT___|", "ENTERIES-", len(listt))
 
     for i in range(len(listt)):
 
@@ -330,7 +330,6 @@ while(x!="bye"):
     print("-"*120)
 
     x=input("1. REGISTER VEHICLE \n\n2. GET CUSTOMER DETAILS(REGISTRATION NO. REQUIRED) \n\n3. CHECK REGISTRATION NO.(ID DETAILS REQUIRED) \n\n4. MODIFY DATA \n\n5. SALE OF CARS \n\n6. SORT \n\n7. HELP \n\nCHOOSE[ENTER 'BYE' TO EXIT] :")
-    x=x.upper()
     
     spac()
     if(x=="1"):
@@ -930,19 +929,20 @@ while(x!="bye"):
                             
     elif(x=="6"):
         ok="y"
-        while(ok=="y"):
+        while(ok!="n"):
             check="again"
             try:
-                print("SORT BY: \n1. NAME \n2 STATE \n2 DATE")
+                print("SORT BY: \n1. NAME \n2 STATE \n2 DATE \nENTER 'BACK' TO EXIT TO MAIN MENU")
                 sort=input("choose a option no.")
-                check=input("check and press any key to continue \nenter 'again' to reenter")
+                sort=sort.lower()
                 if(sort=="back"):
                     break
-                elif(check=="back"):
+                check=input("check and press any key to continue \nenter 'again' to reenter")
+                if(check=="back"):
                     break
                 elif(check=="again"):
                     continue
-                if(sort=="1"):
+                elif(sort=="1"):
                     orderby("NAME")
                 elif(sort=="2"):
                     orderby("STATE")
@@ -961,11 +961,6 @@ while(x!="bye"):
                             else:
                                 continue
                         
-                if(ok=="y"):
-                    continue
-                        
-                else:
-                    break
             except:
                 print("error")
                 continue
@@ -975,9 +970,11 @@ while(x!="bye"):
         print("FOR HELP CONTACT US ON \nEMAIL: anything@example.com \nCUSTOMER CARE: 110-XX-XX-XXX")
         
         print("="*95)
+
     else:
         
         continue
+
         
 print("BYE!!HAVE A NICE DAY :]")
 #_____________________________________________________THE-END_____________________________________________________________________________    
