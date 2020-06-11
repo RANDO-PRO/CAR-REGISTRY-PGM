@@ -100,11 +100,23 @@ def spac2():
     print()
 
 def prip(listt):
-
+    
+    a = len(listt)
+    dig=0
+    while(a>0):
+         a=a//10
+         dig+=1
+     
+    #box 
+    print(dig)
+    print("",("_"*13),"_"*13)
+    print("|__T.ENTERIES_|"+"____"+str(len(listt))+"_"*(9-dig)+"|")
+    
+    #table
     print("", "_"*163)
-
+    
     print("|_R_CODE___________|_NAME", "_"*45+"_|_STATE", "_"*24 +
-          "|_D_O_R________|_I_D________________|_SERIAL_N_O __|_SLOT___|", "ENTERIES-", len(listt))
+          "|_D_O_R________|_I_D________________|_SERIAL_N_O __|_SLOT___|")
 
     for i in range(len(listt)):
 
