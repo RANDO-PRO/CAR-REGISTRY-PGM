@@ -1,3 +1,4 @@
+
 print("░██╗░░░░░░░██╗███████╗██╗░░░░░░█████╗░░█████╗░███╗░░░███╗███████╗")
 print("░██║░░██╗░░██║██╔════╝██║░░░░░██╔══██╗██╔══██╗████╗░████║██╔════╝")
 print("░╚██╗████╗██╔╝█████╗░░██║░░░░░██║░░╚═╝██║░░██║██╔████╔██║█████╗░░")
@@ -167,6 +168,9 @@ def datte():
                    elif str(er)=="day is out of range for month":
                                    print("ERROR:THE DAY IS OUT OF RANGE FOR MONTH!!!!!")
                                    spac()
+               except KeyboardInterrupt:
+                   print("don't use random keys")
+                   continue
                    
       
       else:
