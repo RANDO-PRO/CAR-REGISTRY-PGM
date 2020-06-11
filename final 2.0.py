@@ -110,9 +110,11 @@ def prip(listt):
     while(a > 0):
          a = a//10
          dig += 1
-
+    
+    #stop
+    time.sleep(0.666)
     #box
-    print(dig)
+    
     print("", ("_"*13), "_"*13)
     print("|__T.ENTERIES_|"+"____"+str(len(listt))+"_"*(9-dig)+"|")
 
@@ -550,7 +552,6 @@ while(x !="bye"):
                                       ok = input("press any key to continue ")
                                   else:
                                        print("AN ID SIMILAR TO THIS ALREADY EXISTS!!!!!!PLEASE CHECK IF REGISTRATION HAS ALREADY BE DONE OR ENTER A CORRECT ID!!!!!!!!!!!!!!!!!!!")
-                                       time.sleep(0.64)
                                        spac2()
                                        prip(decider)
                     else:
@@ -647,7 +648,6 @@ while(x !="bye"):
                          print("UNEXPECTED ERROR:", hmmm)
                          spac2()
                          print("THERE ALREADY EXISTS A REGISTRATION WITH THE SAME INFO!!!!IF YOU ARE TRYING TO CHANGE THE NAME THEN GO TO MODIFY DATA OR ELSE RE-ENTER CORRECT DATA!!!!!!!!!!!!!!!!!!!!")
-                         time.sleep(0.34)
                          spac2()
                          prip(checker)
                          time.sleep(0.15)
@@ -796,7 +796,7 @@ while(x !="bye"):
             salemonth = ""
 
             print(
-                "Filter by: \n1. MONTH  \n2. YEAR \n3. MONTH and YEAR \nENTER back to quit to main menue")
+                "Filter by: \n1. MONTH  \n2. YEAR \n3. MONTH and YEAR \nENTER back to quit to main menu")
 
             sale = input("choose from option")
 
@@ -817,7 +817,7 @@ while(x !="bye"):
                         c.execute("select count(*) from registry where D_O_R like %s;", (slm,))
                         print("yes")
                         car = c.fetchall()
-                        if(dcar[0][0] ==0):
+                        if(car[0][0] ==0):
                                  print("no sale in this month")
                         c.execute("select * from registry group by D_O_R having D_O_R like %s", (slm,))
                         dcar = c.fetchall()
@@ -934,45 +934,56 @@ while(x !="bye"):
                     continue
 
                 else:
+            
                     continue
+            except Exception as hoooo:
+                    print("UNEXPECTED ERROR:",hoooo)
+            
 
-    elif x=='6':
+
+    elif(x=='6'):
         ok='y'
         while(ok!='n'):
             
-            check = "again"
             try:
-                print("SORT BY: \n1. NAME \n2 STATE \n2 DATE \nENTER 'BACK' TO EXIT TO MAIN MENU")
-                sort = input("choose a option no.")
-                sort = sort.lower()
-                if(sort =="back"):
+                sork=input("SORT BY: \n[1]NAME \n[2]STATE \n[3]DATE \n\nCHOOSE[ENTER 'BACK' TO EXIT TO MAIN MENU] :")
+                spac2()
+                sork=sork.lower()
+                if(sork =="back"):
                     break
-                check = input("check and press any key to continue \nenter 'again' to reenter")
-                if(check =="back"):
-                    break
-                elif(check =="again"):
-                    continue
-                elif(sort =="1"):
+                    
+                elif(sork =="1"):
                     orderby("NAME")
-                elif(sort =="2"):
+                
+                elif(sork =="2"):
                     orderby("STATE")
-                elif(sort =="3"):
+                
+                elif(sork =="3"):
                     orderby("D_O_R")
+                
                 else:
-                    print("choose from the given option")
+                    print("CHOOSE FROM THE OPTIONS ONLY!!!!!!!!!!!!!!!!!!!!!!")
+                    spac2()
                     continue
-                while(1 >0):
+                
+                while(True):
 
-                            ok = input("do you which to continue(y/n)")
+                            ok = input("DO YOU WISH TO CONTINUE(y/n/yes/no) :")
+                            ok=ok.lower()
+                            spac2()
+                            if(ok =="y" or ok=="yes"):
 
-                            if(ok =="y" or bat=="n"):
                                 break
 
+                            elif(ok=='n' or ok=='no'):
+                                        
+                                        break
                             else:
-                                continue
+                                print("CHOOSE FROM THE OPTIONS ONLY!!!!!!!!!!!!!!")
+                                spac2()
 
-            except:
-                print("error")
+            except Exception as kaka:
+                print("UNEXPECTED ERROR",kaka)
                 continue
     elif(x =="7"):
         print("="*95)
