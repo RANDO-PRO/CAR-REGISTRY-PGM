@@ -351,9 +351,9 @@ while(x !="bye"):
 
     spac()
     if(x =="1"):
-
+        
         while(save !="back"):
-
+            ok='again'
             print("IMPORTANT COMMANDS")
 
             print("*"*95)
@@ -628,7 +628,7 @@ while(x !="bye"):
                           print("REGESTRATION COMPLETE!!!!!!!!!!")
                           spac2()
                           print("QUITING TO MAIN MENU.........")
-                          time.sleep(8)
+                          time.sleep(2.5)
                           spac2()
                           break
 
@@ -998,4 +998,4 @@ while(x !="bye"):
 
 
 print("BYE!!HAVE A NICE DAY :]")
-#_____________________________________________________THE-END_____________________________________________________________________________
+#__________________________________________________________________________________________________________________________________
