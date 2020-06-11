@@ -799,13 +799,11 @@ while(x!="bye"):
                         c.execute("select count(*) from registry where D_O_R like %s;",(slm,))
                         print("yes")
                         car=c.fetchall()
-                        if(car[0][0]==0):
+                        if(dcar[0][0]==0):
                                   print("no sale in this month")
                         c.execute("select * from registry group by D_O_R having D_O_R like %s",(slm,))
                         dcar=c.fetchall()
-                        print("rcode | name |state |date of registration| id | slot| serial |")
-                        for alldata in dcar:
-                            print(alldata)
+                        prip(dcar)
                         
                         print("your sale for this month is",car[0][0])
                         
@@ -832,20 +830,14 @@ while(x!="bye"):
                     while(cat!="no"):
                         
                         saleyear=input("sale of which year(enter year no.)")
+                        sly = "saleyear"+"-"+"%"
                         print("empty")
-                        c.execute("select count(*) from registry where D_O_R like '%-%s-%';",(saleyear,))
+                        c.execute("select count(*) from registry where D_O_R like %s;",(sly,))
                         
                         car=c.fetchall()
                         c.execute("select * from registry group by name having D_O_R like '%s-%';",(saleyear,))
                         dcar=c.fetchall()
-                        print("|-REGISTRATION CODE-|-NAME-|-STATE-|-DATE OF REGISTRATION-|-ID-|-SLOT-|-SERIAL-|")
-                        i=""
-                        for alldata in dcar:
-                            for sdata in alldata:
-                                sdata="|-"+sdata+"-|"
-                                i=i+sdata
-                            print(i)
-
+                        prip(dcar)
                         for alldata in dcar:
                             print(alldata)
                         if(car[0][0]==0):
@@ -880,16 +872,20 @@ while(x!="bye"):
                         saleyear=input("year ")
                         
                         salemonth=input("month")
+                        slym=saleyear+"-"+salemonth+"-"+"%"
                         
-                        for dash in YEAR:
-                            
-                            if(dash==saleyear):
-                                
-                                van=YEAR.index(dash)
-                                
-                                MONTH[van]==salemonth
-                                
-                                car=car+1
+                        c.execute("select count(*) from registry where D_O_R like %s';",(slym,))
+                        
+                        car=c.fetchall()
+                        c.execute("select * from registry group by name having D_O_R like %s;",(slym,))
+                        dcar=c.fetchall()
+                        prip(dcar)
+                        for alldata in dcar:
+                            print(alldata)
+                        if(car[0][0]==0):
+                            print("no sale in this year")
+                        
+                        print("your sale for this year",car[0][0])
                         
                         if(car==0):
                             
@@ -922,8 +918,6 @@ while(x!="bye"):
                 else:
                     continue
             
-            except Exception as haha :
-                print(haha)
                     
                     
                             
