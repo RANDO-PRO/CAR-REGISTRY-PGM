@@ -82,7 +82,14 @@ def spac():
     print()
     print()
     print()
-
+def orderby(something):
+    c.execute("order by %s",(something,))
+    odata=fetchall()
+    if(odata=[]):
+        print("feild doesnt exist")
+        raise AssertionError
+    for hjy in odata:
+        print(hjy)
 def fnamee():
     fname=input("ENTER YOUR FIRST NAME:")
     if(fname=="back"):
