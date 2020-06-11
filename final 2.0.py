@@ -84,8 +84,8 @@ def spac():
     print()
 def orderby(something):
     c.execute("order by %s",(something,))
-    odata=fetchall()
-    if(odata=[]):
+    odata=c.fetchall()
+    if(odata==[]):
         print("feild doesnt exist")
         raise AssertionError
     for hjy in odata:
@@ -761,21 +761,45 @@ while(x!="bye"):
                             
     elif(x=="6"):
         ok="again"
-        while(ok="again"):
-        print("SORT BY: \n1. NAME \n2 STATE \n2 DATE")
-        sort=input("choose a option no.")
-        ok=input("check and press any key to continue \nenter 'again' to reenter")
-        if(sort="back"):
-            break
-        if(sort=="1"):
-            sorted=orderby(NAME)
-        elif(sort=="2"):
-            sorted=orderby(STATE)
-        elif(sort=="3"):
-            sorted=orderby(D_O_R)
-        else:
-            print("choose from the given option")
-            continue
+        while(ok=="y"):
+            check="again"
+            try:
+                print("SORT BY: \n1. NAME \n2 STATE \n2 DATE")
+                sort=input("choose a option no.")
+                check=input("check and press any key to continue \nenter 'again' to reenter")
+                if(sort=="back"):
+                    break
+                elif(check=="back"):
+                    break
+                elif(check=="again"):
+                    continue
+                if(sort=="1"):
+                    sorted=orderby(NAME)
+                elif(sort=="2"):
+                    sorted=orderby(STATE)
+                elif(sort=="3"):
+                    sorted=orderby(D_O_R)
+                else:
+                    print("choose from the given option")
+                    continue
+                while(1>0):
+                            
+                            ok=input("do you which to continue(y/n)")
+                            
+                            if(ok=="y" or bat=="n"):
+                                break
+                            
+                            else:
+                                continue
+                        
+                if(ok=="y"):
+                    continue
+                        
+                else:
+                    break
+            except:
+                print("error")
+                continue
     elif(x=="7"):
         print("="*95)
         
