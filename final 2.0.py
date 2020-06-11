@@ -215,7 +215,7 @@ def statee():
     elif(fname =="again"):
         return baitA
     elif(state.isalpha() ==False):
-        print("VALUE SHOULD NOT BE NUMERIC!!!!!!!")
+        print("STATE NAME SHOULD NOT BE NUMERIC!!!!!!!")
         spac()
         raise ValueError
     else:
