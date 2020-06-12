@@ -21,7 +21,7 @@ def spac2():
 def spac3():
     print()
     
-def linecr(mo,rep=1,spa=2,dis=0,cdis="",term=0,spaceremo=0):
+def linecr(mo,rep=1,spa=2,dis=0,cdis="",gap=0,spaceremo=0):
     namingsa=['REGISTERING',"CUSTOMER DETAILS","SEARCH REGESTRATION NUMBER(R_CODE)","MODIFY DATA","SALE","INF FROM SORTED TABLE","HELP INFO"]
     k=rep+dis
     if cdis=="":
@@ -35,7 +35,7 @@ def linecr(mo,rep=1,spa=2,dis=0,cdis="",term=0,spaceremo=0):
             elif(hoho==dis and cdis==""):
                  print(" "*47+ja)
             elif(cdis!="" and hoho==dis):
-                if term==0:
+                if gap==0:
                      print(ja)
                 else:
                     print(" "*47+ja)
@@ -69,63 +69,18 @@ linecr("-")
 
 #---------------------------------------------------------VARIABLES-------------------------------------------------------------
 
-os = ""
 x = 0
-z = 0
 datu = ""
-size = 0
-save = ""
-verify = ""
-name = ""
-slot = ""
-serial = ""
-state = ""
-day = ""
-month = ""
-year = ""
-ID = ""
-ok = "again"
-done = ""
-sname = ""
-slot1 = ""
-serial2 = ""
-year2 = ""
-day2 = ""
-month2 = ""
-search = ""
-gap = ""
-goku = 1
-i = 1
-go = 1
-gohan = 1
-bat = ""
-cat = ""
-dash = ""
-car = 0
-saleyear = ""
-salemonth = ""
-fer = ""
-per = ""
-sale = ""
-soup = 1
-infinite = 1
-final = ""
-chop = 1
-rat = ""
-pat = ""
-NAME = []
-SLOT = []
-SERIAL = []
-STATE = []
-DAY = []
-MONTH = []
-YEAR = []
-ID_NO = []
-RCODE = []
 baitB = "back"
 baitA = "again"
 huff = ['1', '2', '3', '4', '5']
-#---------------------------------------------CONNECTING TO mysQL----------------------------------------------------------------------
+
+
+
+
+#---------------------------------------------------------------------------------------------------------------------------------
+
+#---------------------------------------------CONNECTING TO mysQL-----------------------------------------------------------------
 
 m = mysql.connector.connect(
     user='root', password='tiger', auth_plugin='mysql_native_password')
@@ -243,7 +198,7 @@ def snamee():
     spac()
     if(sname =="back"):
         return baitB
-    elif(fname =="again"):
+    elif(sname =="again"):
         return baitA
     elif(sname.isalpha() ==False):
         print("VALUE SHOULD NOT BE NUMERIC!!!!!")
@@ -258,7 +213,7 @@ def statee():
     spac()
     if(state =="back"):
         return baitB
-    elif(fname =="again"):
+    elif(state =="again"):
         return baitA
     elif(state.isalpha() ==False):
         print("STATE NAME SHOULD NOT BE NUMERIC!!!!!!!")
@@ -410,37 +365,11 @@ def endin(a=0):
        time.sleep(1.72)
        spac()
        linecr("-")
-#_____________________________________________________EXECUTION_of-data_________________________________________________________________
-
-
-
-while(x !="bye"):
+       
+def nameing():
+    ok='again'
+    while(ok =="again"):
     
-    linecr(" ",2,0,8,"MENU",1,1)
-    car = 0
-
-    print("● 1 REGISTER VEHICLE \n\n● 2 GET CUSTOMER DETAILS(REGISTRATION NO. REQUIRED) \n\n● 3 CHECK REGISTRATION NO.(ID DETAILS REQUIRED) \n\n● 4 MODIFY DATA \n\n● 5 SALE OF CARS \n\n● 6 SORT \n\n● 7 HELP \n"+("_"*98)+"\n")
-    x=input("CHOOSE[ENTER 'BYE' TO EXIT] :")
-    time.sleep(0.44)
-    spac2()
-    
-    
-    x=x.upper()
-    if(x =="1"):
-        
-        linecr("=",2,2,int(x))    
-        while(save !="back"):
-            
-            ok='again'
-            
-            print("IMPORTANT COMMANDS")
-
-            linecr("#",2,2,int(x),"●ENTER 'back' AT ANY POINT TO QUIT TO MAIN MENU\n\n●ENTER 'again' AT ANY POINT TO ENTER AGAIN")
-
-           #fname
-
-            while(ok =="again"):
-
                 try:
                     fname = fnamee()
 
@@ -455,18 +384,17 @@ while(x !="bye"):
                 except ValueError:
                     continue
 
-            if(fname =="back"):
+                if(fname =="back"):
                         spac()
                         break
 
-            else:
-                fname = fname.upper()
-                spac2()
+                else:
+                     fname = fname.upper()
+                     spac2()
             #sname
 
-            ok = "again"
-
-            while(ok =="again"):
+    ok = "again"
+    while(ok =="again"):
 
                 try:
                     sname = snamee()
@@ -483,23 +411,23 @@ while(x !="bye"):
                     continue
 
 
-            if(sname =="back"):
-                    spac()
-                    break
+                if(sname =="back"):
+                     spac()
+                     break
 
-            else:
-                 sname = sname.upper()
-                 name = fname+" "+sname
-                 spac2()
+                else:
+                    sname = sname.upper()
+                    namee = fname+" "+sname
+                    spac2()
 
-            if len(name) >45:
-                name = name[0:46]
+                if len(namee) >45:
+                      namee = namee[0:46]
+                 
+                return namee 
+def stating():
+      ok = "again"
 
-            #state
-
-            ok = "again"
-
-            while(ok =="again"):
+      while(ok =="again"):
                try:
                     state = statee()
 
@@ -511,16 +439,74 @@ while(x !="bye"):
                      continue
 
 
-            if(state =="back"): 
-                spac()
-                break
-            else:
-                 state = state.upper()
-                 spac2()
+               if(state =="back"): 
+                    spac()
+                    break
+               else:
+                   stateee = state.upper()
+                   spac2()
 
-            if len(state) >22:
-                state = state[0:23]
+               if len(stateee) >22:
+                      stateee = stateee[0:23]
+               return stateee
 
+def datetester(d='3',m='2',y='2005',vo=''):
+      try:
+        mday=datetime.date(y,m,d)
+        if mday>datetime.date.today():
+            err="THE "+vo+" DOESN'T EXIST YET!!!!!!!!!!"
+            return err
+        elif mday<datetime.date(1900,12,31):
+                     err="PLEASE ENTER A VALID DATE!!!!!"
+                     return err
+        else:
+            err=""
+            return err
+      except Exception as E:
+                   if str(E) =="month must be in 1..12":
+                                   err="ERROR:MONTH MUST BE BETWEEN 1-12|!!!!!!!!"
+                                   return err
+                   
+                   
+      except KeyboardInterrupt:
+             err="UNEXPECTED ERROR"
+             return err      
+                   
+
+#_____________________________________________________EXECUTION_of-data_________________________________________________________________
+
+
+
+while(x !="bye"):
+    
+    linecr(" ",2,0,8,"MENU",1,1)
+    
+
+    print("● 1 REGISTER VEHICLE \n\n● 2 GET CUSTOMER DETAILS(REGISTRATION NO. REQUIRED) \n\n● 3 CHECK REGISTRATION NO.(ID DETAILS REQUIRED) \n\n● 4 MODIFY DATA \n\n● 5 SALE OF CARS \n\n● 6 SORT \n\n● 7 HELP \n"+("_"*98)+"\n")
+    x=input("CHOOSE[ENTER 'BYE' TO EXIT] :")
+    time.sleep(0.44)
+    spac2()
+    
+    
+    x=x.upper()
+    if(x =="1"):
+        save = ""
+        linecr("=",2,2,int(x))    
+        while(save !="back"):
+            
+            ok='again'
+            
+            print("IMPORTANT COMMANDS")
+
+            linecr("-",2,2,int(x),"●ENTER 'back' AT ANY POINT TO QUIT TO MAIN MENU\n\n●ENTER 'again' AT ANY POINT TO ENTER AGAIN")
+
+            #name
+
+            name=nameing()
+            
+            #state
+
+            state=stating()
             #slot
 
             ok = "again"
@@ -650,16 +636,11 @@ while(x !="bye"):
 
             print("="*95)
 
-            print("STATE:", state,"\nNAME:",name,"\nSLOT NO.:",slot,"\nSERIAL NO.:",serial,"\nDATE:",date,"\nID NO.:",ID,"\nCHECK ALL THE INFORMATION!!!!!!!\n")
-            spac2()
-            print("+"*95)
+            print("STATE:", state,"\nNAME:",name,"\nSLOT NO.:",slot,"\nSERIAL NO.:",serial,"\nDATE:",date,"\nID NO.:",ID,"\nCHECK ALL THE INFORMATION!!!!!!!")
+            spac3()
             time.sleep(0.23)
-            print(
-                "1.ENTER 'reenter' TO ENTER AGAIN \n2. ENTER 'back' TO QUIT TO MAIN MENU")
-            print("+"*95)
-            print()
-            spac2()
-            print("="*95)
+            linecr("+",2,2,int(x),"1.ENTER 'reenter' TO ENTER AGAIN \n2. ENTER 'back' TO QUIT TO MAIN MENU")
+            linecr("=")
             time.sleep(0.67)
             while(True):
 
@@ -731,103 +712,124 @@ while(x !="bye"):
 
 
     elif(x =="2"):
+        done="y"
         linecr("=",2,2,int(x))
         while(done !="no"):
-            linecr("*",2,2,int(x))
-            search = input("ENTER REGISTRATION CODE TO GET INFO or enter 'back' to go back to main menu: ")
-
+            
+            search = input("REGISTRATION CODE :")
+            spac2()
             if(search ==""):
 
-                print("empty feild!!enter again!!")
-
+                print("EMPTY FIELD!!!!!!!!")
+                spac2()
                 continue
 
             elif(search =="back"):
+                linecr("-")
+                spac2()
                 break
+            
             else:
-                print("REGISTRATION CODE:", search)
+                  
+                  check = input("press any key to continue")
+                  spac2()
+                  check = check.lower()
 
-            check = input("check registration code and press any key to continue or enter 'again' to enter again ")
+                  if(check =="again"):
+                                    
+                             continue
+                  
+                  record=infpri([search,"","","","","","",""])
+                  
+                  if(record ==[]):
 
-            check = check.lower()
+                              print("NO SUCH REGISTRATION CODE EXISTS!!!PLEASE ENTER A VALID NUMBER")
+                              spac2()
 
-            if(check =="again"):
+                  else:
+                      name = record[0][1]
 
-                continue
+                      slot = record[0][5]
 
-            c.execute("select * from registry where R_CODE=%s;", (search,))
-            record = c.fetchall()    
-            if(record ==[]):
+                      serial = record[0][6]
 
-                print("registration no. not found!! try again!!")
+                      state = record[0][2]
 
+                      ID = record[0][4]
 
-            else:
-                name = record[0][1]
+                      date = record[0][3]
 
-                slot = record[0][5]
+                      print("="*95)
+                      print("NAME:", name,"\nSLOT:",slot,"\nSERIAL:",serial,"\nSTATE:",state,"\nID NUMBER:",ID,"\nDATE OF REGISTRATION:",date)
+                      print("="*95)
+                      spac2()
+            while(True):
 
-                serial = record[0][6]
-
-                state = record[0][2]
-
-                ID = record[0][4]
-
-                date = record[0][3]
-
-                print("="*95)
-
-                print("NAME:", name,"\nSLOT:",slot,"\nSERIAL:",serial,"\nSTATE:",state,"\nID NUMBER:",ID,"\nDATE OF REGISTRATION:",date)
-
-                print("="*95)
-            while(soup >0):
-
-                done = input("do you want to continue? yes/no ")
-
-                if(done =="yes" or done=="no"):
-
+                done = input("DO YOU WISH TO CONTINUE???[yes/no/y/n] :")
+                done=done.lower()
+                spac2()
+                if(done =="yes" or done=='y'):
+                    
                     break
-
+                elif(done=="no" or done=='n'):
+                    endin()
+                    done='no'
+                    break
                 else:
-                    print("choose from the given option only")
+                    print("CHOOSE FROM THE OPTIONS ONLY!!!!!!!!!!")
+                    spac2()
 
     elif(x =="3"):
+        final='y'
         linecr("=",2,2,int(x))
         while(final !="no"):
             
-            details = input("ENTER YOUR ID NO. TO CHECK REGISTRATION NO.")
-
+            details = input("ID NUMBER :")
+            spac2()
             if(details ==""):
 
-                print("empty feild!!enter again!!")
-
-            elif(details =="back"):
-
-                break
-            print("ID NUMBER:", details)
-
-            check = input("check ID NUMBER and press any key to continue or enter 'again' to enter again ")
-
-            check = check.lower()
-
-            if(check =="again"):
+                print("EMPTY FIELD!!!!!!!!!!!!")
+                spac2()
                 continue
 
-            c.execute("select R_CODE from registry where I_D=%s;", (details,))
-            rc = c.fetchall()
-            print("your code is", rc[0][0])
+            elif(details =="back"):
+                   linecr("-")
+                   break
+
+            check = input("press any key to continue :")
+
+            check = check.lower()
+            spac2()
+            if(check =="again"):
+                     continue
+            rc=infpri(["","","","",details,"",""])
+            
             if(rc ==[]):
 
-                print("registration no. not found!! try again!!")
+                print("NO REGISTRATION NUMBER IS LINKED WITH THAT ID NUMBER!!!ENTER A VALID ID NUMBER")
+                spac2()
+                continue
+            else:
+                 aka="REGISTRATION CODE : "+rc[0][0]
+                 linecr("=",2,2,int(x),aka,0)
+                 
+                 while(True):
+                     final = input("DO YOU WISH TO CONTINUE???[yes/no/y/n]")
+                     final=final.lower()
+                     spac2()
+                     if(final =="yes" or final=="y"):
+                              break
+                     elif(final=='no' or final=='n'):
+                           final='no'
+                           spac2()
+                           endin()
+                           break
+                     else:
+                         print("CHOOSE FROM THE OPTIONS ONLY!!!!!!!!!!!")
+                         spac2()
+                         continue
 
-            while(True):
-                final = input("do you want to continue? yes/no")
-                if(final =="yes" or final=="no"):
-                    break
-                else:
-                    print("choose from the given option only")
-                    continue
-
+    
     elif(x =="4"):
         ok = ""
         linecr("=",2,2,int(x))
@@ -853,7 +855,8 @@ while(x !="bye"):
                               check='again'
                               if(update =="1"):
                                  while(check=='again'):  
-                                     new_name = input("ENTER NEW NAME :")
+                                     new_name = nameing()
+                                     print("NAME :",new_name)
                                      spac3()
                                      check = input("press any key to continue")
                                      spac2()  
@@ -866,8 +869,9 @@ while(x !="bye"):
                                             
                               elif(update =="2"):
                                        while check=='again':                                
-                                             new_name = input("ENTER STATE :")
-                                             spac()
+                                             new_name=stating()
+                                             print("STATE :",new_name)
+                                             spac3()
                                              check = input("press any key to continue")
                                              spac2()
                                        c.execute(c.execute("update registry set STATE='"+new_name+"' where R_CODE='"+rcode+"';"))
@@ -904,143 +908,207 @@ while(x !="bye"):
     
     elif(x =="5"):
         linecr("=",2,2,int(x))
+        sale=""
         while(sale !="back"):
+
+            sale=input("FILTER BY: \n\n● 1 MONTH  \n\n● 2 YEAR \n\n● 3 MONTH&YEAR \n\nCHOOSE[BACK-QUIT TO MENU] :")
             
-            saleyear = ""
-
-            salemonth = ""
-
-            print(
-                "Filter by: \n1. MONTH  \n2. YEAR \n3. MONTH and YEAR \nENTER back to quit to main menu")
-
-            sale = input("choose from option")
-
+            spac2()
+            
             try:
-
+                sale=sale.lower()
                 if(sale =="1"):
-
+                    bat='y'
                     while(bat !="no"):
 
-
-                        salemonth = input("sale of which month(enter month no.)")
-                        salemonth = salemonth.zfill(2)
-                        slm = "%"+"-"+salemonth+"-"+"%"
+                     
+                        salemonth = input("MONTH :")
+                        spac2()
                         if(salemonth ==""):
 
-                            print("empty")
-
-                        c.execute("select count(*) from registry where D_O_R like %s;", (slm,))
-                        print("yes")
-                        car = c.fetchall()
-                        if(car[0][0] ==0):
-                                 print("no sale in this month")
-                        c.execute("select * from registry group by D_O_R having D_O_R like %s", (slm,))
-                        dcar = c.fetchall()
-                        prip(dcar)
-
-                        print("your sale for this month is", car[0][0])
-
-                        while(1 >0):
-
-                            bat = input("do yo want to surf more in this filter yes/no")
-
-                            if(bat =="yes" or bat=="no"):
-                                break
-
-                            else:
-                                continue
-
-                        if(bat =="yes"):
+                            print("EMPTY FIELD!!!!!!!!!!!")
+                            spac2()
                             continue
-
+                        elif(salemonth.isnumeric()==False):
+                                  print("MONTH CAN ONLY BE NUMERIC!!!!!!!!!!!!")
+                                  spac2()
+                                  continue
+                        elif len(salemonth) > 2:
+                            print("INCORRECT FORMAT")
+                            spac2()
+                            continue
+                            
                         else:
-                            break
+                               resr=datetester(3,int(salemonth),2004,"MONTH")
+                               if resr == "":
+                                    salemonth = salemonth.zfill(2)   
+                                    slm = "%"+"-"+salemonth+"-"+"%"
+                                    c.execute("select count(*) from registry where D_O_R like %s;", (slm,))
+                                    car = c.fetchall()
+                                    if(car[0][0] ==0):
+                                         print("ZERO SALE IN THIS MONTH!!!!!!!!!")
+                                         spac2()
+                                    else:
+                                          print("SALE THIS MONTH- ", car[0][0])
+                                          c.execute("select * from registry group by D_O_R having D_O_R like %s", (slm,))
+                                          dcar = c.fetchall()
+                                          spac2()
+                                          prip(dcar)
+
+                               else:
+                                   print("E-",resr)
+                                   spac2()
+                                   continue                            
+
+                        while(True):
+
+                            bat = input("DO YOU WISH TO CONTINUE????[yes/no/y/n]")
+                            bat=bat.lower()
+                            spac2()
+                            if(bat =="yes" or bat=="y"):
+                                      bat='no'
+                                      sale='again'
+                                      break
+                            elif(bat=='no' or bat=='n'):
+                                    bat='no'
+                                    sale='back'
+                                    
+                                    endin()
+                                    break
+                                
+                            else:
+                                 print("CHOOSE FROM THE OPTIONS ONLY!!!!!!!!!!!!!")
+                                 spac2()
+                                 
+                                 
 
                 elif(sale =="2"):
 
-                    car = 0
-
+                  
+                    cat=""
                     while(cat !="no"):
 
-                        saleyear = input("sale of which year(enter year no.)")
-                        sly = "saleyear"+"-"+"%"
-                        print("empty")
-                        c.execute("select count(*) from registry where D_O_R like %s;", (sly,))
-
-                        car = c.fetchall()
-                        c.execute("select * from registry group by name having D_O_R like '%s-%';", (saleyear,))
-                        dcar = c.fetchall()
-                        prip(dcar)
-                        for alldata in dcar:
-                            print(alldata)
-                        if(car[0][0] ==0):
-                            print("no sale in this year")
-
-                        print("your sale for this year", car[0][0])
-
-                        while(go >0):
-
-                            cat = input("do yo want to surf more yes/no")
-
-                            if(cat =="yes" or cat=="no"):
-                                break
-
-                            else:
-                                continue
-
-                        if(cat =="yes"):
+                        saleyear = input("YEAR :")
+                        spac2()
+                        if saleyear=="":
+                                 print("EMPTY FIELD!!!!!!!!!!!")
+                                 spac2()
+                        elif saleyear.isnumeric()==False:
+                            print("YEAR CAN ONLY BE NUMERIC!!!!!!!!!!!!")
+                            spac2()
                             continue
-
+                        elif len(saleyear)!=4:
+                            print("INCORRECT FORMAT!!!!!!!!!!")
+                            spac2()
+                            continue
                         else:
-                            break
+                            rese=datetester(3,2,int(saleyear),"YEAR")
+                            
+                            if rese=="":
+                                   sly = saleyear+"-"+"%"    
+                            
+                                   c.execute("select count(*) from registry where D_O_R like %s;", (sly,))
+                            
+                                   car = c.fetchall()
+                            
+                                   if car[0][0]==0:
+                                          print("ZERO SALE IN THIS YEAR")
+                                          spac2()
+                                   else:
+                                        print("SALE IN THIS YEAR :",car[0][0])
+                                 
+                                        c.execute("select * from registry group by name having D_O_R like '"+saleyear+"-"+"%';")
+                                        dcar = c.fetchall()
+                                        spac2()
+                                        prip(dcar)
+                                
+                            else:
+                                print("E-",rese)
+                                spac2()
+                                continue
+                            
+                            while(True):
+
+                                    cat = input("DO YOU WISH TO CONTINUE????[yes/no/y/n]")
+                                    cat=cat.lower()
+                                    spac2()
+                                    if(cat =="yes" or cat=="y"):
+                                                  cat='no'
+                                                  sale='again'
+                                                  break
+                                    elif(cat=='no' or cat=='n'):
+                                                   cat='no'
+                                                   sale='back'
+                                                   endin()
+                                                   break
+                                    else:
+                                        print("CHOOSE FROM THE OPTIONS ONLY!!!!!!!!!!!!!!!")
+                                        spac2()
+                                         
 
                 elif(sale =="3"):
+                    rat = ""
+                    while(rat!="no"):
 
-                    car = 0
-
-                    chop = 1
-
-                    while(rat !="no"):
-
-                        saleyear = input("year ")
-
-                        salemonth = input("month")
-                        slym = saleyear+"-"+salemonth+"-"+"%"
-
-                        c.execute("select count(*) from registry where D_O_R like %s';", (slym,))
-
-                        car = c.fetchall()
-                        c.execute("select * from registry group by name having D_O_R like %s;", (slym,))
-                        dcar = c.fetchall()
-                        prip(dcar)
-                        for alldata in dcar:
-                            print(alldata)
-                        if(car[0][0] ==0):
-                            print("no sale in this year")
-
-                        print("your sale for this year", car[0][0])
-
-                        if(car ==0):
-
-                            print("sale for this month and year doesn't exist")
-
-                        print("sale for this month and year is", car)
-
-                        while(chop >0):
-
-                            rat = input("do yo want to surf more under this filter yes/no")
-
-                            if(rat =="yes" or rat=="no"):
-                                break
-
-                            else:
-                                continue
-                        if(rat =="yes"):
+                        saleyear = input("YEAR :")
+                        spac2()
+                        salemonth = input("MONTH :")
+                        spac2()
+                        if saleyear=="" or salemonth=="":
+                             print("EMPTY FIELD!!!!!!!!!!!!!!!!!!!")
+                             spac2()
+                             continue
+                        elif(len(saleyear)!=4 or len(salemonth)>2):
+                            print("INCORRECT FORMAT!!!!!!!!!!!!!!!!")
+                            spac2()
                             continue
-
+                        elif saleyear.isnumeric()==False or salemonth.isnumeric()==False:
+                            print("YEAR CAN ONLY BE NUMERIC!!!!!!!!!!!!")
+                            spac2()
+                            continue
                         else:
-                            break
+                            resa=datetester(3,int(salemonth),int(saleyear),"YEAR")
+                            if resa=="":
+                                 salemonth = salemonth.zfill(2)
+                                 slym = saleyear+"-"+salemonth+"-"+"%"
 
+                                 c.execute("select count(*) from registry where D_O_R like %s;", (slym,))
+
+                                 car = c.fetchall() 
+                                 if(car[0][0] ==0):
+                                          print("no sale in this year")
+                                 else:
+                                     c.execute("select * from registry group by name having D_O_R like '"+slym+"';")
+                                     dcar = c.fetchall()
+                                     spac2()
+                                     prip(dcar)
+                            else:
+                                print("E-",resa)
+                                spac2()    
+                                continue 
+
+                            while(True):
+
+                                     rat = input("DO YOU WISH TO CONTINUE????[yes/no/y/n]")
+                                     
+                                     rat=rat.lower()
+                                     spac2()
+                                     
+                                     if(rat =="yes" or rat=="y"):
+                                                    rat='no'
+                                                    sale='again'
+                                                    break
+                                     
+                                     elif rat=='no' or rat=='n':
+                                             rat='no'
+                                             sale='back'
+                                             endin()
+                                             break
+                                     else:
+                                         print("CHOOSE FROM THE OPTIONS ONLY!!!!!!!!!!!!!!!!!")
+                                         spac2()
+                                         
+                        
                 elif(sale =="back"):
 
                     break
@@ -1048,9 +1116,6 @@ while(x !="bye"):
                 elif(sale =="again"):
                     continue
 
-                else:
-            
-                    continue
             except Exception as hoooo:
                     print("UNEXPECTED ERROR:",hoooo)
             
