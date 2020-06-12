@@ -401,12 +401,12 @@ def monoga(choice):
 
 def endin(a=0):
    if a==0:
-      print("QUITING TO MAIN MENU.........")
+      print("QUITTING TO MAIN MENU.........")
       time.sleep(1.6)
       spac2()       
       linecr("-")
    else:
-       print("QUITING THE PROGRAM...........")
+       print("QUITTING THE PROGRAM...........")
        time.sleep(1.72)
        spac()
        linecr("-")
