@@ -6,6 +6,55 @@ import time
 #-------------------------------------------------------------------------------------------------------------------------------
 
 
+#----------------------------------------------------------------SPECIAL--------------------------------------------------------
+
+def spac():
+    print()
+    print()
+    print()
+
+
+def spac2():
+    print()
+    print()
+
+def spac3():
+    print()
+    
+def linecr(mo,rep=1,spa=2,dis=0,cdis="",term=0,spaceremo=0):
+    namingsa=['REGISTERING',"CUSTOMER DETAILS","SEARCH REGESTRATION NUMBER(R_CODE)","MODIFY DATA","SALE","INF FROM SORTED TABLE","HELP INFO"]
+    k=rep+dis
+    if cdis=="":
+        ja=namingsa[(dis-1)]
+    else:
+        ja=cdis
+    if dis!=0:
+        for hoho in range(k):
+            if hoho==0 or (hoho==(k-1) and spaceremo==0):
+                 print(mo*98)
+            elif(hoho==dis and cdis==""):
+                 print(" "*47+ja)
+            elif(cdis!="" and hoho==dis):
+                if term==0:
+                     print(ja)
+                else:
+                    print(" "*47+ja)
+    else:           
+        for hoho in range(k):
+            print(mo*98)
+    
+    if spaceremo!=0:
+        pass
+    elif spa==1:
+        spac3()
+    
+    elif spa==2:
+        spac2()
+    elif(spa==3):
+          spac()
+#================================================================================================================================
+
+
 #----------------------------------------------------------WELCOME---------------------------------------------------------------
 print("░██╗░░░░░░░██╗███████╗██╗░░░░░░█████╗░░█████╗░███╗░░░███╗███████╗")
 print("░██║░░██╗░░██║██╔════╝██║░░░░░██╔══██╗██╔══██╗████╗░████║██╔════╝")
@@ -14,6 +63,8 @@ print("░░████╔═████║░██╔══╝░░██�
 print("░░╚██╔╝░╚██╔╝░███████╗███████╗╚█████╔╝╚█████╔╝██║░╚═╝░██║███████╗")
 print("░░░╚═╝░░░╚═╝░░╚══════╝╚══════╝░╚════╝░░╚════╝░╚═╝░░░░░╚═╝╚══════╝")
 time.sleep(0.56)
+spac2()
+linecr("-")
 #-------------------------------------------------------------------------------------------------------------------------------
 
 #---------------------------------------------------------VARIABLES-------------------------------------------------------------
@@ -73,7 +124,7 @@ ID_NO = []
 RCODE = []
 baitB = "back"
 baitA = "again"
-
+huff = ['1', '2', '3', '4', '5']
 #---------------------------------------------CONNECTING TO mysQL----------------------------------------------------------------------
 
 m = mysql.connector.connect(
@@ -92,15 +143,7 @@ except:
 #_______________________________________________________FUNCTION DEFINE______________________________________________________________
 
 
-def spac():
-    print()
-    print()
-    print()
 
-
-def spac2():
-    print()
-    print()
 
 
 def prip(listt):
@@ -167,11 +210,14 @@ def infpri(L=[], rp=''):  # r_code,NAME,STATE,D_O_R,I_D,SERIAL_N_O,SLOT
         return pop
 
 
-def orderby(something):
-    c.execute("SELECT * FROM REGISTRY ORDER BY %s;", (something,))
+def orderby(something,descending=""):
+    if descending=="":
+          c.execute("SELECT * FROM REGISTRY ORDER BY "+something+";")
+    else:
+        c.execute("SELECT * FROM REGISTRY ORDER BY "+something+" DESC;")
     odata = c.fetchall()
     if(odata ==[]):
-        print("feild doesnt exist")
+        print("NO ENTERY EXISTS")
         raise AssertionError
     prip(odata)
 
@@ -340,32 +386,54 @@ def seriale():
                 serial = "0"+serial
                 size = len(serial)
         return serial
+
+
+def monoga(choice):
+    pass
+    va=["NAME","STATE","D_O_R","SERIAL_N_O","SLOT"]
+    
+    if len(choice)==1:
+        so=va[(int(choice)-1)]
+        orderby(so)
+    else:
+        so=va[(int(choice[0])-1)]
+        orderby(so,"DESC")
+
+def endin():
+    print("QUITING TO MAIN MENU.........")
+    time.sleep(1.6)
+    spac2()       
+    linecr("-")
+
+
 #_____________________________________________________EXECUTION_of-data_________________________________________________________________
+
+
+
 while(x !="bye"):
-
+    
+    linecr(" ",2,0,8,"MENU",1,1)
     car = 0
+
+    print("● 1 REGISTER VEHICLE \n\n● 2 GET CUSTOMER DETAILS(REGISTRATION NO. REQUIRED) \n\n● 3 CHECK REGISTRATION NO.(ID DETAILS REQUIRED) \n\n● 4 MODIFY DATA \n\n● 5 SALE OF CARS \n\n● 6 SORT \n\n● 7 HELP \n"+("_"*98)+"\n")
+    x=input("CHOOSE[ENTER 'BYE' TO EXIT] :")
+    time.sleep(0.44)
     spac2()
-    print("-"*120)
-
-    x = input("1. REGISTER VEHICLE \n\n2. GET CUSTOMER DETAILS(REGISTRATION NO. REQUIRED) \n\n3. CHECK REGISTRATION NO.(ID DETAILS REQUIRED) \n\n4. MODIFY DATA \n\n5. SALE OF CARS \n\n6. SORT \n\n7. HELP \n\nCHOOSE[ENTER 'BYE' TO EXIT] :")
-
-    spac()
+    
+    
+    
     if(x =="1"):
         
+        linecr("=",2,2,int(x))    
         while(save !="back"):
+            
             ok='again'
+            
             print("IMPORTANT COMMANDS")
 
-            print("*"*95)
+            linecr("#",2,2,int(x),"●ENTER 'back' AT ANY POINT TO QUIT TO MAIN MENU\n\n●ENTER 'again' AT ANY POINT TO ENTER AGAIN")
 
-            print("1. ENTER 'back' AT ANY POINT TO QUIT TO MAIN MENU")
-
-            print("2. ENTER 'again' AT ANY POINT TO ENTER AGaIN")
-
-            print("*"*95)
-
-            spac()
-            #fname
+           #fname
 
             while(ok =="again"):
 
@@ -627,20 +695,20 @@ while(x !="bye"):
                           time.sleep(0.22)
                           print("REGESTRATION COMPLETE!!!!!!!!!!")
                           spac2()
-                          print("QUITING TO MAIN MENU.........")
-                          time.sleep(2.5)
-                          spac2()
+                          endin()
                           break
 
                 elif(save =="back"):
+                       endin()
                        break
-
                 elif(save =="reenter"):
+                        linecr("-")
                         continue
 
                 elif(save =="no" or save=='n'):
                            print("CANCELLED!!!!!!!!")
                            spac2()
+                           endin()
                            break
 
             except Exception as hmmm:
@@ -653,17 +721,15 @@ while(x !="bye"):
                          time.sleep(0.15)
                          print("CANCELLED")
                          spac2()
-                         print("QUITING TO MAIN MENU.........")
-                         time.sleep(0.85)
-                         spac2()
+                         endin()
                          break
             break
 
 
     elif(x =="2"):
-
+        linecr("=",2,2,int(x))
         while(done !="no"):
-
+            linecr("*",2,2,int(x))
             search = input("ENTER REGISTRATION CODE TO GET INFO or enter 'back' to go back to main menu: ")
 
             if(search ==""):
@@ -722,9 +788,9 @@ while(x !="bye"):
                     print("choose from the given option only")
 
     elif(x =="3"):
-
+        linecr("=",2,2,int(x))
         while(final !="no"):
-
+            
             details = input("ENTER YOUR ID NO. TO CHECK REGISTRATION NO.")
 
             if(details ==""):
@@ -760,7 +826,9 @@ while(x !="bye"):
 
     elif(x =="4"):
         ok = ""
+        linecr("=",2,2,int(x))
         while(ok !='n'):
+            
             rcode = input("enter registrtaion code")
             c.execute("select * from registry where R_CODE=%s", (rcode,) )
             checkdata = c.fetchall()
@@ -788,9 +856,9 @@ while(x !="bye"):
 
                 ok = 'n'
     elif(x =="5"):
-
+        linecr("=",2,2,int(x))
         while(sale !="back"):
-
+            
             saleyear = ""
 
             salemonth = ""
@@ -943,57 +1011,72 @@ while(x !="bye"):
 
     elif(x=='6'):
         ok='y'
+        linecr("=", 2, 2, int(x))    
         while(ok!='n'):
-            
             try:
-                sork=input("SORT BY: \n[1]NAME \n[2]STATE \n[3]DATE \n\nCHOOSE[ENTER 'BACK' TO EXIT TO MAIN MENU] :")
+                print("SORT BY: \n\n● 1 NAME \n\n● 2 STATE \n\n● 3 DATE \n\n● 4 SERIAL NUMBER \n\n● 5 SLOT \n"+("-"*96),"\n\n●[ENTER 'BACK' TO EXIT TO MAIN MENU]\n●[ADD 'D' TO THE END OF THE OPTION FOR DESCENDING SORT]","\n\n"+("-"*96))
+                sork=input("CHOOSE :")
                 spac2()
                 sork=sork.lower()
                 if(sork =="back"):
+                    spac2()
+                    endin()
                     break
-                    
-                elif(sork =="1"):
-                    orderby("NAME")
+                  
                 
-                elif(sork =="2"):
-                    orderby("STATE")
-                
-                elif(sork =="3"):
-                    orderby("D_O_R")
+                elif len(sork)<3 and sork in huff or (sork[0] in huff and sork[1]=='d'):
+                                              monoga(sork)
                 
                 else:
-                    print("CHOOSE FROM THE OPTIONS ONLY!!!!!!!!!!!!!!!!!!!!!!")
+                    print("CHOOSE FROM THE OPTIONS ONLY!!!!!!!!!!!!!!")
                     spac2()
+                    linecr("-")
                     continue
-                
+                    
                 while(True):
 
-                            ok = input("DO YOU WISH TO CONTINUE(y/n/yes/no) :")
+                            ok = input("DO YOU WISH TO CONTINUE??(y/n/yes/no) :")
                             ok=ok.lower()
                             spac2()
+                            
                             if(ok =="y" or ok=="yes"):
-
+                                linecr("-")    
                                 break
 
                             elif(ok=='n' or ok=='no'):
-                                        
+                                        ok='n'
+                                        endin()    
                                         break
                             else:
                                 print("CHOOSE FROM THE OPTIONS ONLY!!!!!!!!!!!!!!")
                                 spac2()
+                                
+                                
 
             except Exception as kaka:
-                print("UNEXPECTED ERROR",kaka)
+                print("ERROR:",kaka)
+                time.sleep(0.48)
+                spac2()
+                linecr("-")
                 continue
+    
     elif(x =="7"):
-        print("="*95)
-
-        print("FOR HELP CONTACT US ON \nEMAIL: anything@example.com \nCUSTOMER CARE: 110-XX-XX-XXX")
-
-        print("="*95)
+        
+        linecr("-", 2, 2, int(x))
+        
+        
+        linecr("=", 2, 2, int(
+            x), "FOR HELP CONTACT US ON \n\n●EMAIL: namekharuko@gmail.com \n\n●CUSTOMER CARE: 110-83-72-369")
+        time.sleep(0.67)
+        linecr("-")
+        
 
     else:
-
+        linecr("-",1,0)
+        print("PLEASE CHOOSE FROM THE OPTIONS ONLY!!!!!!!!!!!!!!!")
+        linecr("-")
+        spac2()
+        linecr("-")
         continue
 
 
