@@ -399,13 +399,17 @@ def monoga(choice):
         so=va[(int(choice[0])-1)]
         orderby(so,"DESC")
 
-def endin():
-    print("QUITING TO MAIN MENU.........")
-    time.sleep(1.6)
-    spac2()       
-    linecr("-")
-
-
+def endin(a=0):
+   if a==0:
+      print("QUITING TO MAIN MENU.........")
+      time.sleep(1.6)
+      spac2()       
+      linecr("-")
+   else:
+       print("QUITING THE PROGRAM...........")
+       time.sleep(1.72)
+       spac()
+       linecr("-")
 #_____________________________________________________EXECUTION_of-data_________________________________________________________________
 
 
@@ -421,7 +425,7 @@ while(x !="bye"):
     spac2()
     
     
-    
+    x=x.upper()
     if(x =="1"):
         
         linecr("=",2,2,int(x))    
@@ -828,33 +832,76 @@ while(x !="bye"):
         ok = ""
         linecr("=",2,2,int(x))
         while(ok !='n'):
+           try: 
+            rcode = input("REGISTRATION CODE :")
+            spac2()
+            if len(rcode)==14:
+                if rcode.isnumeric()==False and rcode.isalpha()==False: 
+                      c.execute("select * from registry where R_CODE=%s", (rcode,) )
+                      checkdata = c.fetchall()
+                      if(checkdata ==[]):
+                            print("NO SUCH CODE EXISTS")
+                            spac2()
+                            continue
+                      else:
+                          
+                          while True: 
+                              linecr("=",2,2,int(x),"● 1 NAME \n● 2 STATE")
+                                                         
+                              update = input("CHOOSE :")
+                              spac2()
+                              check='again'
+                              if(update =="1"):
+                                 while(check=='again'):  
+                                     new_name = input("ENTER NEW NAME :")
+                                     spac3()
+                                     check = input("press any key to continue")
+                                     spac2()  
+                                 c.execute("update registry set NAME='"+new_name+"' where R_CODE='"+rcode+"';")
+                                 m.commit()
+                                 print("NAME CHANGE COMPLETED!!!!!!!!!!!!!!!!!!!!")
+                                 spac2()
+                                 endin()
+                                 break
+                                            
+                              elif(update =="2"):
+                                       while check=='again':                                
+                                             new_name = input("ENTER STATE :")
+                                             spac()
+                                             check = input("press any key to continue")
+                                             spac2()
+                                       c.execute(c.execute("update registry set STATE='"+new_name+"' where R_CODE='"+rcode+"';"))
+                                       m.commit()
+                                       print("STATE CHANGE COMPLETED!!!!!!!!!!!!!!!!!!!!")
+                                       spac2()
+                                       endin()
+                                       break
+                              elif update=='back':
+                                  break
+                              
+                              else:
+                                   print("CHOOSE FROM THE OPTIONS ONLY!!!!!!!!")
+                                   spac2()
+                                   continue
+                else:                       
+                
+                    print("REGISTRATION CODE CONTAINS BOTH NUMBERS AND ALPHABETS!!!!!!!!!!!!!!!")
+                    spac2()
+                    continue
+            elif(rcode=='back'):
+                linecr("-")
+                break
             
-            rcode = input("enter registrtaion code")
-            c.execute("select * from registry where R_CODE=%s", (rcode,) )
-            checkdata = c.fetchall()
-            if(checkdata ==[]):
-                print("code doesn't exist")
-                continue
+            
             else:
-                print("="*95)
-                print("1.NAME \n2.STATE \n what you want to update")
-                print("="*95)
-                update = input("choose a option no.")
-                if(update =="1"):
-                    check = "again"
-                    while(check =="again"):
-                      new_name = input("enter new name")
-                      check = input("press any key to continue")
-                      c.execute("update registry set name=%s where R_CODE=%s;", (new_name,rcode))
-                elif(update =="2"):
-                      pass
-                      while(check =="again"):
-                        new_name = input("enter new name")
-                        check = input("press any key to continue")
-                        c.execute("update registry set name=%s where R_CODE=%s;", (new_name,rcode))
-
-
-                ok = 'n'
+                print("REGISTRATION CODE HAS ONLY 14 CHARACTERS!!!!!!!!!!!!!!")
+                continue
+           except Exception as jojo:
+                  print("UNEXPECTED ERROR:",jojo)
+                  spac2()
+           ok = 'n'
+    
+    
     elif(x =="5"):
         linecr("=",2,2,int(x))
         while(sale !="back"):
@@ -1070,15 +1117,18 @@ while(x !="bye"):
         time.sleep(0.67)
         linecr("-")
         
-
+    elif x=='BYE':
+        endin(1)
+        break
     else:
-        linecr("-",1,0)
-        print("PLEASE CHOOSE FROM THE OPTIONS ONLY!!!!!!!!!!!!!!!")
-        linecr("-")
-        spac2()
+        
+        linecr("-",2,2,9,"PLEASE CHOOSE FROM THE OPTIONS ONLY!!!!!!!!!!!!!!!")
         linecr("-")
         continue
 
 
 print("BYE!!HAVE A NICE DAY :]")
+
+
+
 #__________________________________________________________________________________________________________________________________
