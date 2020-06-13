@@ -372,10 +372,11 @@ def nameing():
     
                 try:
                     fname = fnamee()
-
+                
                     ok = input("press any key ")
 
                     if(fname =="back"):
+                        quiting=1
                         break
 
                 except AssertionError:
@@ -402,6 +403,7 @@ def nameing():
                     ok = input("press any key ")
 
                     if(sname =="back"):
+                        quiting=1
                         break
 
                 except AssertionError:
@@ -411,7 +413,8 @@ def nameing():
                     continue
 
 
-                if(sname =="back"):
+                if(quiting=1):
+                     return "back"
                      spac()
                      break
 
@@ -848,7 +851,7 @@ while(x !="bye"):
                       else:
                           
                           while True: 
-                              linecr("=",2,2,int(x),"● 1 NAME \n● 2 STATE")
+                              linecr("=",2,2,int(x),"● 1 NAME \n● 2 STATE \nENTER 'back' to exit")
                                                          
                               update = input("CHOOSE :")
                               spac2()
@@ -856,6 +859,8 @@ while(x !="bye"):
                               if(update =="1"):
                                  while(check=='again'):  
                                      new_name = nameing()
+                                     if(new_name='back'):
+                                        break
                                      print("NAME :",new_name)
                                      spac3()
                                      check = input("press any key to continue")
@@ -870,6 +875,8 @@ while(x !="bye"):
                               elif(update =="2"):
                                        while check=='again':                                
                                              new_name=stating()
+                                             if(new_name='back'):
+                                                    break
                                              print("STATE :",new_name)
                                              spac3()
                                              check = input("press any key to continue")
