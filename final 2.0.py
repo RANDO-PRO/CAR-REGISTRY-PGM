@@ -404,7 +404,7 @@ def nameing():
     while(ok =="again"):
 
                 try:
-                    if(quiting==1):
+                    if(quitting==1):
                         break
                     sname = snamee()
 
@@ -422,9 +422,7 @@ def nameing():
 
 
                 if(quiting==1):
-                     return "back"
-                     spac()
-                     break
+                     namee="back"
 
                 else:
                     sname = sname.upper()
@@ -436,6 +434,7 @@ def nameing():
                  
                 return namee 
 def stating():
+      stateee=""
       ok = "again"
 
       while(ok =="again"):
@@ -451,6 +450,7 @@ def stating():
 
 
                if(state =="back"): 
+                    stateee="back"
                     spac()
                     break
                else:
@@ -459,7 +459,7 @@ def stating():
 
                if len(stateee) >22:
                       stateee = stateee[0:23]
-               return stateee
+      return stateee
 
 def datetester(d='3',m='2',y='2005',vo=''):
       try:
