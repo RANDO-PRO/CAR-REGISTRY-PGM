@@ -1,3 +1,9 @@
+def spac():
+    print()
+    print()
+    print()
+
+
 #-----------------------------------------------------------IMPORTS-------------------------------------------------------------
 import mysql.connector
 import datetime
@@ -413,7 +419,7 @@ def nameing():
                     continue
 
 
-                if(quiting=1):
+                if(quiting==1):
                      return "back"
                      spac()
                      break
@@ -859,7 +865,7 @@ while(x !="bye"):
                               if(update =="1"):
                                  while(check=='again'):  
                                      new_name = nameing()
-                                     if(new_name='back'):
+                                     if(new_name=='back'):
                                         break
                                      print("NAME :",new_name)
                                      spac3()
@@ -875,7 +881,7 @@ while(x !="bye"):
                               elif(update =="2"):
                                        while check=='again':                                
                                              new_name=stating()
-                                             if(new_name='back'):
+                                             if(new_name=='back'):
                                                     break
                                              print("STATE :",new_name)
                                              spac3()
