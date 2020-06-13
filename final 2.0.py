@@ -404,6 +404,8 @@ def nameing():
     while(ok =="again"):
 
                 try:
+                    if(quiting==1):
+                        break
                     sname = snamee()
 
                     ok = input("press any key ")
