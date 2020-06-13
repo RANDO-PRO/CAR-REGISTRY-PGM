@@ -5,7 +5,10 @@ def spac():
 
 
 #-----------------------------------------------------------IMPORTS-------------------------------------------------------------
-import mysql.connector
+try:
+    import mysql.connector
+except:
+    print("SEEMS LIKE THE MYSQL MODULE DOESN'T EXIST \n try again later!!!!")
 import datetime
 import time
 
