@@ -1,19 +1,21 @@
-def spac():
-    print()
-    print()
-    print()
-
-
 #-----------------------------------------------------------IMPORTS-------------------------------------------------------------
-try:
-    import mysql.connector
-except:
-    print("SEEMS LIKE THE MYSQL MODULE DOESN'T EXIST \n try again later!!!!")
+import mysql.connector
 import datetime
 import time
 
 #-------------------------------------------------------------------------------------------------------------------------------
 
+#-------------------------------------------------------------variables----------------------------------------------------------
+
+c = ""
+m = ""
+x = 0
+datu = ""
+baitB = "back"
+baitA = "again"
+huff = ['1', '2', '3', '4', '5']
+
+#----------------------------------------------------------------------------------------------------------------------------------
 
 #----------------------------------------------------------------SPECIAL--------------------------------------------------------
 
@@ -30,16 +32,25 @@ def spac2():
 def spac3():
     print()
     
-def linecr(mo,rep=1,spa=2,dis=0,cdis="",gap=0,spaceremo=0):
-    namingsa=['REGISTERING',"CUSTOMER DETAILS","SEARCH REGESTRATION NUMBER(R_CODE)","MODIFY DATA","SALE","INF FROM SORTED TABLE","HELP INFO"]
+def linecr(mo,rep=1,spa=2,dis=0,cdis="",gap=0,lineremov=0):
+    #mo is the character used to make the line 
+    #rep is the amount of times you want to repeat the line
+    #spa is for space.Basically the default value is 2 so it will print 2 empty lines.Value 1 will print 1 emty line and Value >= 3 will print 3 empty lines.value 0 will print no empty lines 
+    #dis is used for displaying text that has been used as options in the main menu.It uses the value of int(x) to figure out the text to be displayed
+    #cdis is a custom display option that will display messages
+    #gap is to see if you want the custom display to be displayed in the center or near the start.It has been disabled by default
+    #dis won't work if cdis has been used.So,default value should be 2 for dis.
+    #lineremov is just there if you don't want a line to be printed after the cdis or dis
+    
+    namingsa=['REGISTERING',"CUSTOMER DETAILS","SEARCH REGESTRATION NUMBER(R_CODE)","MODIFY DATA","SALE","INF FROM SORTED TABLE","HELP INFO","MYSQL CONNECTION"]
     k=rep+dis
     if cdis=="":
         ja=namingsa[(dis-1)]
     else:
         ja=cdis
-    if dis!=0:
+    if dis!=0 or cdis=="":
         for hoho in range(k):
-            if hoho==0 or (hoho==(k-1) and spaceremo==0):
+            if hoho==0 or (hoho==(k-1) and lineremov==0):
                  print(mo*98)
             elif(hoho==dis and cdis==""):
                  print(" "*47+ja)
@@ -52,15 +63,212 @@ def linecr(mo,rep=1,spa=2,dis=0,cdis="",gap=0,spaceremo=0):
         for hoho in range(k):
             print(mo*98)
     
-    if spaceremo!=0:
+    if spa==0:
         pass
     elif spa==1:
         spac3()
     
     elif spa==2:
         spac2()
-    elif(spa==3):
+    elif(spa>=3):
           spac()
+
+def delinf():
+    dela = open("SQLINF.txt", "w")
+    dela.write("")
+    dela.close()
+
+
+def reader():
+  while(True):
+    try:
+      rara = []
+      rop = open("SQLINF.txt", "r")
+
+      for kami in rop:
+         kami = kami.strip()
+         rara.append(kami)
+
+      rop.close()
+
+      return rara
+      
+      break
+    except Exception as exce:
+      if "[Errno 2] No such file or directory: 'SQLINF.txt'"==str(exce):
+                          hope = open("SQLINF.txt", "w")
+                          hope.write("")
+                          hope.close()   
+                        
+        
+      else:
+         spac2() 
+         print("UNEXPECTED ERROR :",exce)
+         spac2()
+         endin(1)
+         break
+         x="bye"
+
+
+def filinf(L):
+
+   while(True):
+       abyss = 0
+       try:
+          answer = reader()
+       except Exception as re:
+
+              if "[Errno 2] No such file or directory: 'SQLINF.txt'" == str(re):
+                                   abyss = 1
+
+              else:
+                  print("UNEXPECTED ERROR :", re)
+                  break
+       if abyss == 1:
+              hope = open("SQLINF.txt", "w")
+              for i in L:
+
+                  
+                  hope.write(i+"\n")
+
+              hope.close()
+       else:
+            
+            if answer==[]:
+                hope = open("SQLINF.txt", "w")
+                for i in L:
+                       hope.write(i+"\n")
+
+                hope.close()
+            else:
+                 break    
+           
+def sqla():
+     while(True): 
+      use=input("ENTER USER NAME[DEFAULT-MYSQL-USER:'ROOT'] :")
+      spac2()
+      if use=="":
+            print("FIELD EMPTY!!!!!!!!!!!")
+            spac2()
+            continue
+      else:
+          break
+     while True: 
+        pas=input("ENTER PASSWORD[DEFAULT MYSQL-PSWD:''] :")
+        spac2()
+        if  pas=="":
+            
+           print("EMPTY FIELD!!!!!!!!!!!!!!!!!!")
+           spac2()
+           continue
+        else:
+            break            
+     return [use,pas,"1"]
+def mysqlcom():
+     
+      while(True):
+         heki = 0
+         
+         if reader()==[]:
+             infoow = sqla()
+         else:
+             infoow=reader()
+         try:
+            global m
+            global c
+            m = mysql.connector.connect(
+                user=infoow[0], password=infoow[1], auth_plugin='mysql_native_password')
+            c = m.cursor()
+            while(True):
+                try:
+                     filinf(infoow)
+                     c.execute("create database vdata")
+                     
+                     break
+               
+                except Exception as e:
+                            
+                            if "1007 (HY000): Can't create database 'vdata'; database exists"==str(e):
+                                                 heki=1 
+                                                 break
+                                                 
+                            else:
+                                  spac2()
+                                  print("UNEXPECTED ERROR-",e)
+                                  spac2()
+                                  endin(1)
+                                  heki=2
+                                  break
+            if heki==0:
+                    c.execute("use vdata")
+                    try:
+                      
+                       c.execute("create table registry(R_CODE char(15) primary key,NAME char(50) not null,STATE char(50) not null,D_O_R date not null,I_D char(50) not null,SERIAL_N_O int not null,SLOT int not null);")
+                      
+                       spac2()
+                       print("SUCCESSFULLY CREATED DATABASE!!!!!!!!!!")
+                       time.sleep(0.34)
+                       spac2()
+                       print("USING DATABASE VDATA............")
+                       time.sleep(0.36)
+                       spac2()
+                       
+                       print("CREATING TABLE REGISTRY..........")
+                       time.sleep(0.38)
+                       spac2()
+                       print("SUCCESSFULLY CREATED TABLE REGISTRY!!!!!!!!!!!")
+                       time.sleep(0.40)
+                       spac2()
+                       print("USING TABLE REGISTRY")
+                       spac2()
+                       print("STARTING THE PROGRAM............")
+                       spac()
+                       break
+                    except Exception as ra:
+                             print("ERROR :",ra)
+                             spac2()
+                             break
+            elif heki==2:
+                break                  
+            
+            else:
+                   try:   
+                       c.execute("use "+"vdata")
+                       time.sleep(0.32)
+                       spac2()
+                       print("FOUND DATABASE VDATA!!!!!!!!!")
+                       time.sleep(0.34)
+                       spac2()
+                       print("USING DATABASE VDATA................")
+                       time.sleep(0.36)
+                       spac2()
+                       print("USING TABLE REGISTRY...........")
+                       time.sleep(0.38)
+                       spac2()
+                       print("STARTING THE PROGRAM............")
+                       spac()
+                       break
+                 
+                   except Exception as ka:
+                         spac2()
+                         print("ERROR :",ka)
+                         spac2()
+                         endin(1)
+                         break  
+         except Exception as erroq:
+                  if "module 'mysql.connector' has no attribute 'connect'"==str(erroq):
+                      
+                      print("MYSQL NOT FOUND ON THE PC!!!!!DOWNLOAD IT FROM--'https://dev.mysql.com/downloads/installer/'")
+                      spac2()
+                  elif "1045 (28000): Access denied for user '"+infoow[0]+"'@'localhost' (using password: YES)" == str(erroq):
+                        print("THE PASSWORD FOR THE USERNAME "+infoow[0]+" IS INCORRECT!!!!!!!PLEASE ENTER AGAIN")
+                        spac2()
+                        continue
+                  
+                  else:
+                        print("UNEXPECTED ERROR :",str(erroq).upper())
+                        spac2()
+         break
 #================================================================================================================================
 
 
@@ -74,35 +282,13 @@ print("░░░╚═╝░░░╚═╝░░╚══════╝╚═�
 time.sleep(0.56)
 spac2()
 linecr("-")
+
 #-------------------------------------------------------------------------------------------------------------------------------
 
-#---------------------------------------------------------VARIABLES-------------------------------------------------------------
-
-x = 0
-datu = ""
-baitB = "back"
-baitA = "again"
-huff = ['1', '2', '3', '4', '5']
-
-
-
-
-#---------------------------------------------------------------------------------------------------------------------------------
 
 #---------------------------------------------CONNECTING TO mysQL-----------------------------------------------------------------
-
-m = mysql.connector.connect(
-    user='root', password='tiger', auth_plugin='mysql_native_password')
-c = m.cursor()
-try:
-    c.execute("create database vdata")
-except mysql.connector.errors.DatabaseError:
-    pass
-c.execute("use vdata")
-try:
-    c.execute("create table registry(R_CODE char(15) primary key,NAME char(50) not null,STATE char(50) not null,D_O_R date not null,I_D char(50) not null,SERIAL_N_O int not null,SLOT int not null);")
-except:
-    pass
+linecr("=",2,2,8)
+mysqlcom()
 #rcode-name-state-dor-id-slot-serial
 #_______________________________________________________FUNCTION DEFINE______________________________________________________________
 
@@ -174,17 +360,19 @@ def infpri(L=[], rp=''):  # r_code,NAME,STATE,D_O_R,I_D,SERIAL_N_O,SLOT
         return pop
 
 
-def orderby(something,descending=""):
+def orderby(something,descending="",pa=0):
     if descending=="":
           c.execute("SELECT * FROM REGISTRY ORDER BY "+something+";")
     else:
         c.execute("SELECT * FROM REGISTRY ORDER BY "+something+" DESC;")
     odata = c.fetchall()
     if(odata ==[]):
-        print("NO ENTERY EXISTS")
-        raise AssertionError
-    prip(odata)
-
+        print("NO ENTRY EXISTS!!!!!!!!!!!!!")
+        spac2()
+    if pa==0:
+        prip(odata)
+    else:
+        return odata
 
 def fnamee():
     fname = input("ENTER FIRST NAME:")
@@ -368,7 +556,7 @@ def endin(a=0):
       print("QUITTING TO MAIN MENU.........")
       time.sleep(1.6)
       spac2()       
-      linecr("-")
+      
    else:
        print("QUITTING THE PROGRAM...........")
        time.sleep(1.72)
@@ -381,11 +569,10 @@ def nameing():
     
                 try:
                     fname = fnamee()
-                
+
                     ok = input("press any key ")
 
                     if(fname =="back"):
-                        quiting=1
                         break
 
                 except AssertionError:
@@ -407,14 +594,11 @@ def nameing():
     while(ok =="again"):
 
                 try:
-                    if(quitting==1):
-                        break
                     sname = snamee()
 
                     ok = input("press any key ")
 
                     if(sname =="back"):
-                        quiting=1
                         break
 
                 except AssertionError:
@@ -424,8 +608,9 @@ def nameing():
                     continue
 
 
-                if(quiting==1):
-                     namee="back"
+                if(sname =="back"):
+                     spac()
+                     break
 
                 else:
                     sname = sname.upper()
@@ -437,7 +622,6 @@ def nameing():
                  
                 return namee 
 def stating():
-      stateee=""
       ok = "again"
 
       while(ok =="again"):
@@ -453,7 +637,6 @@ def stating():
 
 
                if(state =="back"): 
-                    stateee="back"
                     spac()
                     break
                else:
@@ -462,7 +645,7 @@ def stating():
 
                if len(stateee) >22:
                       stateee = stateee[0:23]
-      return stateee
+               return stateee
 
 def datetester(d='3',m='2',y='2005',vo=''):
       try:
@@ -486,17 +669,39 @@ def datetester(d='3',m='2',y='2005',vo=''):
              err="UNEXPECTED ERROR"
              return err      
                    
+def passcheck():
+   h=0
+   while(True):
+        
+    porch=input("ENTER PASSWORD :")
+    k=reader()
+    spac2()
+    if porch==k[1]:
+        spac2()
+        return "y"
+        break
+    else:
+    
+        print("INCORRECT PASSWORD!!!!!!!!!!!ENTER AGAIN")
+        spac2()
+        
+        h+=1
+        if h>3:
+            print("YOU HAVE ENTERED THE WRONG PASSWORD TOO MANY TIMES!!!!!!!!TRY AGAIN LATER")
+            spac2()
+            return "q"
+            break
 
 #_____________________________________________________EXECUTION_of-data_________________________________________________________________
 
 
 
 while(x !="bye"):
-    
-    linecr(" ",2,0,8,"MENU",1,1)
+   try:   
+    linecr("-",2,0,8,"MENU",1,1)
     
 
-    print("● 1 REGISTER VEHICLE \n\n● 2 GET CUSTOMER DETAILS(REGISTRATION NO. REQUIRED) \n\n● 3 CHECK REGISTRATION NO.(ID DETAILS REQUIRED) \n\n● 4 MODIFY DATA \n\n● 5 SALE OF CARS \n\n● 6 SORT \n\n● 7 HELP \n"+("_"*98)+"\n")
+    print("● 1 REGISTER VEHICLE \n\n● 2 GET CUSTOMER DETAILS(REGISTRATION NO. REQUIRED) \n\n● 3 CHECK REGISTRATION NO.(ID DETAILS REQUIRED) \n\n● 4 MODIFY \n\n● 5 SALE OF CARS \n\n● 6 SORT \n\n● 7 HELP \n"+("_"*98)+"\n")
     x=input("CHOOSE[ENTER 'BYE' TO EXIT] :")
     time.sleep(0.44)
     spac2()
@@ -532,12 +737,9 @@ while(x !="bye"):
                     slot = slote()
 
                     slot2 = int(slot)
-
-                    if(slot =="back"):
-
-                        break
+                    spac3()
                     ok = input("press any key to continue")
-
+                    
                 except ValueError:
 
                     print("ERROR:AVOID USE OF SPECIAL CHARACTER!!!!!!!!")
@@ -549,13 +751,7 @@ while(x !="bye"):
                     continue
 
 
-            if(slot =="back"):
-                spac()
-                break
-
-            else:
-                spac2()
-
+            spac2()
             #serial
 
             ok = "again"
@@ -566,9 +762,6 @@ while(x !="bye"):
 
                     serial = seriale()
 
-                    if(serial =="back"):
-
-                        break
 
                     ok = input("press any key to continue ")
 
@@ -582,9 +775,7 @@ while(x !="bye"):
 
                     continue
 
-            if(serial =="back"):
-                spac()
-                break
+            
             else:
                 spac2()
 
@@ -612,6 +803,7 @@ while(x !="bye"):
                     ID = input("ENTER ID NUMBER(ADHAAR CARD NO./VOTER ID CARD NO.) :")
                     spac()
                     if(ID =="back"):
+                        endin()
                         break
 
 
@@ -687,12 +879,12 @@ while(x !="bye"):
 
                           m.commit()
                           time.sleep(0.15)
-                          print("REGESTRATION CODE IS:", code)
+                          print("REGISTRATION CODE IS:", code)
                           print()
                           press = input("press any key to continue")
                           spac2()
                           time.sleep(0.22)
-                          print("REGESTRATION COMPLETE!!!!!!!!!!")
+                          print("REGISTRATION COMPLETE!!!!!!!!!!")
                           spac2()
                           endin()
                           break
@@ -726,8 +918,14 @@ while(x !="bye"):
 
 
     elif(x =="2"):
-        done="y"
-        linecr("=",2,2,int(x))
+      done="y"
+      linecr("=",2,2,int(x))
+      if orderby("NAME","",1)==[]:
+          
+          spac2
+          endin()
+      else:
+      
         while(done !="no"):
             
             search = input("REGISTRATION CODE :")
@@ -739,8 +937,7 @@ while(x !="bye"):
                 continue
 
             elif(search =="back"):
-                linecr("-")
-                spac2()
+                endin()
                 break
             
             else:
@@ -794,8 +991,14 @@ while(x !="bye"):
                     spac2()
 
     elif(x =="3"):
-        final='y'
-        linecr("=",2,2,int(x))
+      final='y'
+      linecr("=",2,2,int(x))
+      if orderby("NAME","",1)==[]:
+          
+          spac2
+          endin()
+      else:
+        
         while(final !="no"):
             
             details = input("ID NUMBER :")
@@ -807,7 +1010,7 @@ while(x !="bye"):
                 continue
 
             elif(details =="back"):
-                   linecr("-")
+                   endin()
                    break
 
             check = input("press any key to continue :")
@@ -845,79 +1048,214 @@ while(x !="bye"):
 
     
     elif(x =="4"):
-        ok = ""
-        linecr("=",2,2,int(x))
+      ok = ""
+      linecr("=",2,2,int(x))
+      if orderby("NAME","",1)==[]:
+              
+              spac2
+              endin()
+      else:
+       
         while(ok !='n'):
            try: 
-            rcode = input("REGISTRATION CODE :")
-            spac2()
-            if len(rcode)==14:
-                if rcode.isnumeric()==False and rcode.isalpha()==False: 
-                      c.execute("select * from registry where R_CODE=%s", (rcode,) )
-                      checkdata = c.fetchall()
-                      if(checkdata ==[]):
-                            print("NO SUCH CODE EXISTS")
-                            spac2()
-                            continue
-                      else:
-                          
-                          while True: 
-                              linecr("=",2,2,int(x),"● 1 NAME \n● 2 STATE \nENTER 'back' to exit")
+               linecr("=",2,2,int(x),"● 1 NAME \n\n● 2 ERASE THE WHOLE DATABASE \n\n● 3 DELET AN ENTRY \n\n● 4 DEFAULT RESET")
                                                          
-                              update = input("CHOOSE :")
-                              spac2()
-                              check='again'
-                              if(update =="1"):
-                                 while(check=='again'):  
-                                     new_name = nameing()
-                                     if(new_name=='back'):
-                                        break
-                                     print("NAME :",new_name)
-                                     spac3()
-                                     check = input("press any key to continue")
-                                     spac2()  
-                                 c.execute("update registry set NAME='"+new_name+"' where R_CODE='"+rcode+"';")
-                                 m.commit()
-                                 print("NAME CHANGE COMPLETED!!!!!!!!!!!!!!!!!!!!")
-                                 spac2()
-                                 endin()
-                                 break
-                                            
-                              elif(update =="2"):
-                                       while check=='again':                                
-                                             new_name=stating()
-                                             if(new_name=='back'):
-                                                    break
-                                             print("STATE :",new_name)
+               update = input("CHOOSE :")
+               spac2()
+               check='again'
+                  
+               if update=='1' or update=='3':
+                 while(True):
+                   if x!=2 or x!=4:  
+                     rcode = input("REGISTRATION CODE :")
+                     spac2()
+                     if len(rcode)==14:
+                        if rcode.isnumeric()==False and rcode.isalpha()==False: 
+                           c.execute("select * from registry where R_CODE=%s", (rcode,) )
+                           checkdata = c.fetchall()
+                           if(checkdata ==[]):
+                               print("NO SUCH CODE EXISTS!!!!!!!!!!!!!!!!!!!!!!")
+                               spac2()
+                               continue
+                           else:
+                          
+                              while True: 
+                                   
+                                   if(update =="1"):
+                                       while(check=='again'):  
+                                             new_name = nameing()
+                                             print("NAME :",new_name)
                                              spac3()
-                                             check = input("press any key to continue")
+                                             check = input("press any key to continue :")
+                                             spac2()  
+                                             if check!='again' and check!='back':
+                                                c.execute("update registry set NAME='"+new_name+"' where R_CODE='"+rcode+"';")
+                                                m.commit()
+                                                print("NAME CHANGE COMPLETED!!!!!!!!!!!!!!!!!!!!")
+                                                spac2()
+                                                endin()
+                                                ok='n'
+                                                break
+                                             elif check=='back':
+                                                    endin()
+                                                    break
+                                             else:
+                                                 continue
+                                   
+                                   
+                                          
+                                        
+                                   
+                                    
+                                   elif update=='3':
+                                         p2=passcheck()
+                                         if p2=='y':
+                                             lc=input("press any key to continue [n/no--cancel] :")
+                                             lc=lc.lower()
                                              spac2()
-                                       c.execute(c.execute("update registry set STATE='"+new_name+"' where R_CODE='"+rcode+"';"))
-                                       m.commit()
-                                       print("STATE CHANGE COMPLETED!!!!!!!!!!!!!!!!!!!!")
-                                       spac2()
-                                       endin()
-                                       break
-                              elif update=='back':
-                                  break
-                              
-                              else:
-                                   print("CHOOSE FROM THE OPTIONS ONLY!!!!!!!!")
-                                   spac2()
-                                   continue
-                else:                       
-                
-                    print("REGISTRATION CODE CONTAINS BOTH NUMBERS AND ALPHABETS!!!!!!!!!!!!!!!")
+                                             print("ENTRY :")
+                                             prip(infpri([rcode,"","","","","",""]))
+                                             
+                                             if lc!='n' and lc!='no':
+                                                  
+                                                  print("DELETING ENTRY WITH R_CODE :",rcode+"..........") 
+                                                  spac2()
+                                                  time.sleep(0.21)
+                                
+                                                  c.execute("DELETE FROM registry WHERE R_CODE=%s;",(rcode,))
+                                                  m.commit()
+                                                  print("SUCCESSFULLY DELETED ENTRY!!!!!!!!!!!!!!!")
+                                                  spac2()
+                                                  endin()
+                                                  break                                             
+                                             else:
+                                                 print("CANCELLED!!!!!!!!!!!!!!!")
+                                                 spac2()
+                                                 endin()
+                                                 break
+                                         else:
+                                             endin()
+                                             break
+                                         
+                                         
+                                                          
+                                   
+                                   break
+                    
+                     elif(rcode=='back'):
+                                endin()
+                                ok='n'
+                                break
+                    
+                     elif len(rcode)!=14:
+                          print("REGISTRATION CODE HAS ONLY 14 CHARACTERS!!!!!!!!!!!!!!")                       
+                          
+                          spac2()
+                          continue
+            
+                     else:
+                       print("REGISTRATION CODE CONTAINS BOTH NUMBERS AND ALPHABETS!!!!!!!!!!!!!!!")  
+                       
+                       continue
+                 
+                 
+                     break
+                    
+               elif update=='4' or update=='2':
+                         if update=='4':
+                                         p3=passcheck()
+                                         if p3=='y':
+                                             lc=input("press any key to continue (n/no--cancel) :")
+                                             lc=lc.lower()
+                                             spac2()
+                                             if lc!='n' and lc!='no':
+                                                try:  
+                                                  
+                                                  
+                                                  print("ERASING USER SETTING..........")
+                                                  time.sleep(0.23)
+                                                  delinf()
+                                                  x='bye'
+                                                  spac2()
+                                                  print("SUCCESSFUL!!!!!!!!!!!")
+                                                  spac2()
+                                                  endin(1)
+                                                  break
+                                                except Exception as kjs:
+                                                            print("UNEXPECTED ERROR :",str(kjs).upper())
+                                                            spac2()
+                                                            endin()
+                                                            break
+                                             else:
+                                                 print("QUITTING!!!!!!!!!!!!!")
+                                                 spac2()
+                                                 endin()
+                                                 break
+                                         else:
+                                                                                         
+                                             endin()
+                                             break                 
+                        
+                         if update=='2':
+                                    p1=passcheck()
+                                    if p1=='y': 
+                                             
+                                             while(True):
+                                                     
+                                                     try:
+                                                        lc=input("press any key to continue (n/no--cancel) :")
+                                                        lc=lc.lower()
+                                                        spac2()
+                                                        if lc!='n' and lc!='no':  
+                                                            c.execute("DROP TABLE registry;")
+                                                            m.commit()
+                                                            print("DROPPING TABLE..........")
+                                                            spac2()
+                                                            time.sleep(0.21)
+                                                            print("DROPPED TABLE REGISTRY!!!!!!!!!")
+                                                            spac2()
+                                                            time.sleep(0.21)
+                                                            print("CLEARED DATABASE vdata!!!!!!!!!!!!!")
+                                                            spac2()
+                                                            c.execute("create table registry(R_CODE char(15) primary key,NAME char(50) not null,STATE char(50) not null,D_O_R date not null,I_D char(50) not null,SERIAL_N_O int not null,SLOT int not null);")
+                                                            endin()
+                                                            break
+                                                        else:
+                                                             print("CANCELLED!!!!!!!!!!!!")
+                                                             spac2()
+                                                             endin()
+                                                             break
+                                                     
+                                                     except Exception as kj:
+                                                            print("UNEXPECTED ERROR :",str(kj).upper())
+                                                            spac2()
+                                                            endin()
+                                                            break
+                  
+                                    else:
+                                        endin()
+                                        break
+                   
+               
+               
+               
+               
+               elif update=='back':
+                          endin()
+                          break
+               
+               else:
+                    print("CHOOSE FROM THE OPTIONS ONLY!!!!!!!!")
                     spac2()
                     continue
-            elif(rcode=='back'):
-                linecr("-")
-                break
-            
-            
-            else:
-                print("REGISTRATION CODE HAS ONLY 14 CHARACTERS!!!!!!!!!!!!!!")
-                continue
+                                                   
+               break                  
+                             
+               
+               
+               
+                     
+                     
            except Exception as jojo:
                   print("UNEXPECTED ERROR:",jojo)
                   spac2()
@@ -925,8 +1263,14 @@ while(x !="bye"):
     
     
     elif(x =="5"):
-        linecr("=",2,2,int(x))
-        sale=""
+      linecr("=",2,2,int(x))
+      sale=""
+      if orderby("NAME","",1)==[]:
+          
+          spac2
+          endin()
+      else:
+      
         while(sale !="back"):
 
             sale=input("FILTER BY: \n\n● 1 MONTH  \n\n● 2 YEAR \n\n● 3 MONTH&YEAR \n\nCHOOSE[BACK-QUIT TO MENU] :")
@@ -1094,7 +1438,7 @@ while(x !="bye"):
 
                                  car = c.fetchall() 
                                  if(car[0][0] ==0):
-                                          print("no sale in this year")
+                                          print("ZERO SALE IN THIS YEAR!!!!!!!!!!!!!!!!")
                                  else:
                                      c.execute("select * from registry group by name having D_O_R like '"+slym+"';")
                                      dcar = c.fetchall()
@@ -1128,7 +1472,7 @@ while(x !="bye"):
                                          
                         
                 elif(sale =="back"):
-
+                    endin()
                     break
 
                 elif(sale =="again"):
@@ -1140,8 +1484,14 @@ while(x !="bye"):
 
 
     elif(x=='6'):
-        ok='y'
-        linecr("=", 2, 2, int(x))    
+      ok='y'
+      linecr("=", 2, 2, int(x))    
+      if orderby("NAME","",1)==[]:
+          
+          spac2
+          endin()
+      else:
+      
         while(ok!='n'):
             try:
                 print("SORT BY: \n\n● 1 NAME \n\n● 2 STATE \n\n● 3 DATE \n\n● 4 SERIAL NUMBER \n\n● 5 SLOT \n"+("-"*96),"\n\n●[ENTER 'BACK' TO EXIT TO MAIN MENU]\n●[ADD 'D' TO THE END OF THE OPTION FOR DESCENDING SORT]","\n\n"+("-"*96))
@@ -1184,7 +1534,13 @@ while(x !="bye"):
                                 
 
             except Exception as kaka:
-                print("ERROR:",kaka)
+                if str(kaka)=="":
+                      spac2()
+                      time.sleep(0.8)
+                      endin()
+                      break
+                else:  
+                     print("ERROR:",kaka)
                 time.sleep(0.48)
                 spac2()
                 linecr("-")
@@ -1198,7 +1554,7 @@ while(x !="bye"):
         linecr("=", 2, 2, int(
             x), "FOR HELP CONTACT US ON \n\n●EMAIL: namekharuko@gmail.com \n\n●CUSTOMER CARE: 110-83-72-369")
         time.sleep(0.67)
-        linecr("-")
+        
         
     elif x=='BYE':
         endin(1)
@@ -1206,10 +1562,14 @@ while(x !="bye"):
     else:
         
         linecr("-",2,2,9,"PLEASE CHOOSE FROM THE OPTIONS ONLY!!!!!!!!!!!!!!!")
-        linecr("-")
+
         continue
-
-
+  
+   except Exception as lasex:
+    
+        print("UNEXPECTED ERROR :",lasex)
+        endin(1)
+        break
 print("BYE!!HAVE A NICE DAY :]")
 
 
