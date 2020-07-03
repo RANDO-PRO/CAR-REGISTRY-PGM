@@ -6,7 +6,7 @@ import time
 #-------------------------------------------------------------------------------------------------------------------------------
 
 #-------------------------------------------------------------variables----------------------------------------------------------
-all=0
+hp=0
 c = ""
 m = ""
 x = 0
@@ -165,6 +165,7 @@ def sqla():
             break            
      return [use,pas,"1"]
 def mysqlcom():
+      hp=0
      
       while(True):
          heki = 0
@@ -176,9 +177,14 @@ def mysqlcom():
          try:
             global m
             global c
-            m = mysql.connector.connect(
-                user=infoow[0], password=infoow[1], auth_plugin='mysql_native_password')
+            if(hp==1):
+                print("yes")
+                m = mysql.connector.connect(user=infoow[0], password=infoow[1])
+                hp=0
+            else:
+                m = mysql.connector.connect(user=infoow[0], password=infoow[1], auth_plugin='mysql_native_password')
             c = m.cursor()
+            
             while(True):
                 try:
                      filinf(infoow)
@@ -197,6 +203,9 @@ def mysqlcom():
                                   print("UNEXPECTED ERROR-",e)
                                   spac2()
                                   heki=2
+                                  endin(1)
+                                  break
+                                  
 
             if heki==0:
                     c.execute("use vdata")
@@ -228,7 +237,7 @@ def mysqlcom():
                              spac2()
                              break
             elif heki==2:
-                all=1                 
+                break
             
             else:
                    try:   
@@ -266,7 +275,9 @@ def mysqlcom():
                   
                   else:
                         print("UNEXPECTED ERROR :",str(erroq).upper())
+                        hp=1
                         spac2()
+                        continue
          break
 #================================================================================================================================
 
@@ -287,13 +298,8 @@ linecr("-")
 
 #---------------------------------------------CONNECTING TO mysQL-----------------------------------------------------------------
 linecr("=",2,2,8)
-while(True):
-    mysqlcom()
-    if(all==1):
-        print("unecpected")
-        continue
-    else:
-        break
+mysqlcom()
+
 #rcode-name-state-dor-id-slot-serial
 #_______________________________________________________FUNCTION DEFINE______________________________________________________________
 
