@@ -273,10 +273,13 @@ def mysqlcom():
                         continue
                   
                   else:
-                        print("UNEXPECTED ERROR :",str(erroq).upper())
-                        hp=1
-                        spac2()
-                        continue
+                        hp+=1
+                        if(hp==2):
+                            print("UNEXPECTED ERROR :",str(erroq).upper())
+                            spac2()
+                        elif(hp==1):
+                            continue
+
          break
 #================================================================================================================================
 
@@ -589,7 +592,7 @@ def nameing():
                     continue
 
                 if(fname =="back"):
-                        spac()
+                        fname=baitB
                         break
 
                 else:
@@ -599,6 +602,8 @@ def nameing():
 
     ok = "again"
     while(ok =="again"):
+                if(fname==baitB):
+                    break
 
                 try:
                     sname = snamee()
@@ -616,7 +621,7 @@ def nameing():
 
 
                 if(sname =="back"):
-                     spac()
+                     sname=baitB
                      break
 
                 else:
@@ -626,8 +631,10 @@ def nameing():
 
                 if len(namee) >45:
                       namee = namee[0:46]
-                 
-                return namee 
+    if(fname==baitB or sname==baitB):
+      return baitB
+    else:
+      return namee 
 def stating():
       ok = "again"
 
@@ -652,7 +659,10 @@ def stating():
 
                if len(stateee) >22:
                       stateee = stateee[0:23]
-               return stateee
+      if(state=="back"):
+          return baitB
+      else:
+          return stateee
 
 def datetester(d='3',m='2',y='2005',vo=''):
       try:
@@ -729,10 +739,18 @@ while(x !="bye"):
             #name
 
             name=nameing()
+            if(name==baitB):
+                endin(0)
+                spac2()
+                break
             
             #state
 
             state=stating()
+            if(state==baitB):
+                endin(0)
+                spac2()
+                break
             #slot
 
             ok = "again"
@@ -748,7 +766,10 @@ while(x !="bye"):
                     ok = input("press any key to continue")
                     
                 except ValueError:
-
+                    if(slot==baitB):
+                        endin(0)
+                        spac2()
+                        break
                     print("ERROR:AVOID USE OF SPECIAL CHARACTER!!!!!!!!")
                     spac()
                     continue
@@ -773,6 +794,10 @@ while(x !="bye"):
                     ok = input("press any key to continue ")
 
                 except ValueError:
+                    if(serial==baitB):
+                        endin(0)
+                        spac2()
+                        break
 
                     print("OOPS! ERROR!,TRY AGAIN! AVOID USE OF SPECIAL CHARACTER ")
 
