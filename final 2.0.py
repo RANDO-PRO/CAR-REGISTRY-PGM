@@ -6,7 +6,7 @@ import time
 #-------------------------------------------------------------------------------------------------------------------------------
 
 #-------------------------------------------------------------variables----------------------------------------------------------
-
+all=0
 c = ""
 m = ""
 x = 0
@@ -196,9 +196,8 @@ def mysqlcom():
                                   spac2()
                                   print("UNEXPECTED ERROR-",e)
                                   spac2()
-                                  endin(1)
                                   heki=2
-                                  break
+
             if heki==0:
                     c.execute("use vdata")
                     try:
@@ -229,7 +228,7 @@ def mysqlcom():
                              spac2()
                              break
             elif heki==2:
-                break                  
+                all=1                 
             
             else:
                    try:   
@@ -288,7 +287,13 @@ linecr("-")
 
 #---------------------------------------------CONNECTING TO mysQL-----------------------------------------------------------------
 linecr("=",2,2,8)
-mysqlcom()
+while(True):
+    mysqlcom()
+    if(all==1):
+        print("unecpected")
+        continue
+    else:
+        break
 #rcode-name-state-dor-id-slot-serial
 #_______________________________________________________FUNCTION DEFINE______________________________________________________________
 
