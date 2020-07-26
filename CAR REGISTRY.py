@@ -293,9 +293,11 @@ def mysqlcom():
                         if(hp==2):
                             print("UNEXPECTED ERROR :",str(erroq).upper())
                             spac2()
+                            endin(2)
                             break
                         elif(hp==1):
                             print("UNEXPECTED ERROR :", str(erroq).upper())
+                            spac2()
                             continue
 
          break
