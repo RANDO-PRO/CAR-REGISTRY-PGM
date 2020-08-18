@@ -1,8 +1,12 @@
 #-----------------------------------------------------------IMPORTS-------------------------------------------------------------
-import mysql.connector
-import datetime
-import time
-
+try:
+  import mysql.connector
+  import datetime
+  import time
+  import os
+except Exception as mysq:
+    if str(mysq)=="":
+        print("yes")
 #-------------------------------------------------------------------------------------------------------------------------------
 
 #-------------------------------------------------------------variables----------------------------------------------------------
@@ -30,7 +34,6 @@ def spac2():
 
 def spac3():
     print()
-    
 
     
 def linecr(mo,rep=1,spa=2,dis=0,cdis="",gap=0,lineremov=0):
@@ -183,13 +186,16 @@ def mysqlcom():
      
       while(True):
          heki = 0
-         
+         editdatacheck=0
          if reader()==[]:
              infoow = sqla()
              if infoow=="end":
                  break
          else:
              infoow=reader()
+             if infoow!=[]:
+                 editdatacheck=1
+            
          try:
             global m
             global c
@@ -284,10 +290,26 @@ def mysqlcom():
                       print("MYSQL NOT FOUND ON THE PC!!!!!DOWNLOAD IT FROM--'https://dev.mysql.com/downloads/installer/'")
                       spac2()
                   elif "1045 (28000): Access denied for user '"+infoow[0]+"'@'localhost' (using password: YES)" == str(erroq):
+                      if editdatacheck!=1:
+                          
                         print("THE PASSWORD FOR THE USERNAME "+infoow[0]+" IS INCORRECT!!!!!!!PLEASE ENTER AGAIN")
                         spac2()
                         continue
-                  
+                      else:
+                          locatis = os.path.join(os.path.dirname(__file__), 'SQLINF')
+                          locatis=locatis.replace('\\',"/")
+                          os.remove(locatis)
+                          print("THERE WAS A PROBLEM WITH THE FILE DATA...")
+                          time.sleep(0.21)
+                          spac2()
+                          print("DELETING FILE....")
+                          time.sleep(0.21)
+                          spac2()
+                          print("RESTARTING PROGRAM....")
+                          time.sleep(0.21)
+                          spac2()
+                          continue
+                                            
                   else:
                         hp+=1
                         if(hp==2):
